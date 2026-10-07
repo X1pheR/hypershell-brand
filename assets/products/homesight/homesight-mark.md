@@ -37,10 +37,23 @@ The accepted repair candidate removed only pixels that were proven byte-for-byte
 
 ## Validation
 
-- Canonical SHA-256: `26b15fd06babefdb4e1f7183f7a0798c22c20291e88ddf0f3607ae9bfa6f88c1`
+- Canonical SHA-256: `666d3059246597db1db080a3e0e4352b69f241679ea48e87d178d91f34559a9a`
 - Canvas: 1254×1254 RGBA
-- Accepted center artwork and intended Family Template geometry are unchanged.
+- Accepted Family Template geometry is unchanged.
 - The accepted PNG is the production visual authority.
+
+## 2026-10-07 center placement adjustment
+
+After the Family Template noise repair, the center artwork was manually repositioned for improved optical centering and explicitly accepted before public publication.
+
+- previous repaired HomeSight SHA-256: `26b15fd06babefdb4e1f7183f7a0798c22c20291e88ddf0f3607ae9bfa6f88c1`
+- adjusted canonical HomeSight SHA-256: `666d3059246597db1db080a3e0e4352b69f241679ea48e87d178d91f34559a9a`
+- changed-pixel bbox: `[332,405,910,885]`
+- changed pixels: `78483`
+- changed Family Template pixels: `0`
+- current Family Template pixel mismatches: `0`
+
+The adjustment changes only center-region artwork placement; every visible canonical Family Template pixel remains byte-for-byte identical.
 
 ## Center-mark reproduction intent
 
