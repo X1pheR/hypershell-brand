@@ -12,17 +12,18 @@ Secrets Delivery Manager
 
 - `sdm-mark.png`
 - Canvas: 1254×1254 RGBA
-- SHA-256: `40a5b508e69edd6ce669f1768f33144d4314f48b45d20f6822a59b32eb3aed64`
+- SHA-256: `4d6d0bca50e37e0879bb0381c52678ded98a19d42cf2290abad81bae6bf5abd5`
 
 ## Visual authority
 
 The accepted PNG is the production visual authority for the SDM product mark.
 
-It was explicitly human-approved after the final manual placement adjustment.
+It was originally explicitly human-approved after the final manual placement adjustment. The later 2026-10-07 repair removed only proven inherited Family Template noise and was separately human-reviewed and accepted.
 
 ## Inputs
 
 - Canonical Family Template: `../../masterbrand/hypershell-family-template.png`
+- Family Template SHA-256: `292ee5d1dcdd0b7dd4e190d0c25bd71a6dbc73f2c69e86775da2e32396138cc1`
 - Accepted SDM center mark: `sdm-center-mark.png`
 
 ## Placement provenance
@@ -38,11 +39,19 @@ The user then manually adjusted only the shield/keyhole group upward by 26 px, r
 - shield bbox: `[405,417,850,938]`
 - keyhole bbox: `[560,580,695,807]`
 
-All Family Template outer components remained unchanged.
+The intended Family Template outer components remained unchanged.
 
-The final approved raster corresponds to the user-adjusted review file:
+## 2026-10-07 Family Template noise repair
 
-`/srv/hypershell/tmp/hypershell-brand-references/sdm-mark-review-v7.png`
+The previously accepted SDM raster inherited detached alpha-noise pixels from the former Family Template.
+
+The accepted repair candidate removed only pixels that were proven byte-for-byte identical to detached noise pixels in that former Family Template.
+
+- previous SDM SHA-256: `40a5b508e69edd6ce669f1768f33144d4314f48b45d20f6822a59b32eb3aed64`
+- repaired SDM SHA-256: `4d6d0bca50e37e0879bb0381c52678ded98a19d42cf2290abad81bae6bf5abd5`
+- proven inherited noise pixels cleared: `5329`
+- every other SDM pixel remained byte-for-byte unchanged
+- the repaired raster was explicitly human-reviewed and accepted before canonical promotion
 
 ## Design intent
 
@@ -58,4 +67,3 @@ The final approved raster corresponds to the user-adjusted review file:
 
 - The accepted PNG remains authoritative over later reconstructions.
 - `sdm-center-mark.md` records the standalone center-generation intent.
-- The brand workspace remains non-Git until the intended asset set is complete and human-accepted.
