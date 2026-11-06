@@ -31,5 +31,9 @@ jobs:
       - run: pnpm run test:unit
       - run: pnpm run build
       - run: pnpm run build:storybook
-      - name: Verify AI component manifest
-        run: test -s storybook-static/manifests/components.json
+      - name: Verify native component catalog and AI manifest
+        run: pnpm run check:catalog
+      - name: Install browser for official Storybook Vitest addon
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run native Storybook component and accessibility tests
+        run: pnpm run test:storybook
