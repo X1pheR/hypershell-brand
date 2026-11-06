@@ -56,6 +56,19 @@ jobs:
             summary = "\n".join(failed_stories[:45])[:4700]
             encoded = summary.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
             print("::error title=Native Storybook failing stories::" + encoded)
+            failure_positions = [i for i, line in enumerate(lines) if re.match(r"\s*FAIL\s+", line)]
+            for n, position in enumerate(failure_positions):
+              end = failure_positions[n + 1] if n + 1 < len(failure_positions) else len(lines)
+              chunk = lines[position + 1:end]
+              markers = ("Received:", "Expected the HTML", "Element has ", "Fix any", "Unable to", "should have", "Cannot ", "AssertionError", "TypeError")
+              reasons = []
+              for line in chunk:
+                item = line.strip()
+                if item and any(marker in item for marker in markers) and item not in reasons:
+                  reasons.append(item)
+              detail = "\n".join([lines[position].strip()] + reasons[:6])[:1550]
+              encoded_detail = detail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::error title=Native Storybook case {n + 1:02d}::" + encoded_detail)
           # Make an ordinary GitHub check annotation available through the
           # read-only GitHub check-runs API; never include runner secrets.
           tail = "\n".join(lines[-36:])[:2200]
