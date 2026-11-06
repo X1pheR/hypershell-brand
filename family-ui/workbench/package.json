@@ -14,6 +14,7 @@
     "test:unit": "vitest run --project unit",
     "test:storybook": "vitest run --project storybook-light --browser.fileParallelism=false && vitest run --project storybook-dark --browser.fileParallelism=false",
     "test:e2e": "playwright test",
+    "test:visual": "playwright test --config playwright.visual.config.ts",
     "check:catalog": "python3 scripts/check_catalog.py",
     "check:foundation": "pnpm run lint && pnpm run test:unit && pnpm run build && pnpm run build:storybook && pnpm run check:catalog",
     "preview": "vite preview"
