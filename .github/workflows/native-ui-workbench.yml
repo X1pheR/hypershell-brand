@@ -36,4 +36,26 @@ jobs:
       - name: Install browser for official Storybook Vitest addon
         run: pnpm exec playwright install --with-deps chromium
       - name: Run native Storybook component and accessibility tests
-        run: pnpm run test:storybook
+        shell: bash
+        run: |
+          set +e
+          pnpm run test:storybook > "$RUNNER_TEMP/native-storybook-tests.log" 2>&1
+          result=$?
+          set -e
+          cat "$RUNNER_TEMP/native-storybook-tests.log"
+          if [ "$result" -ne 0 ]; then
+            python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import os
+          raw = (Path(os.environ["RUNNER_TEMP"]) / "native-storybook-tests.log").read_text(errors="replace")
+          clean = re.sub(r"\x1b\[[0-9;]*m", "", raw)
+          lines = clean.splitlines()
+          # Make an ordinary GitHub check annotation available through the
+          # read-only GitHub check-runs API; never include runner secrets.
+          tail = "\n".join(lines[-36:])[:2200]
+          escaped = tail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+          print("::error title=Native Storybook Vitest failure::" + escaped)
+          PY
+          fi
+          exit "$result"
