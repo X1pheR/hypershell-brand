@@ -11,7 +11,17 @@ const storybook = (mode: "light" | "dark") => ({
   plugins: [storybookTest({ configDir: resolve(here, ".storybook"), initialGlobals: { theme: mode } })],
   test: {
     name: `storybook-${mode}`,
-    browser: { enabled: true, provider: playwright({}), headless: true, instances: [{ browser: "chromium" }] },
+    // Storybook documents reduced isolation/concurrency for large browser suites.
+    // Keep every story tested, but avoid a cold Vite optimizer overwhelming CI.
+    isolate: false,
+    browser: {
+      enabled: true,
+      provider: playwright({}),
+      headless: true,
+      instances: [{ browser: "chromium" }],
+      fileParallelism: false,
+      connectTimeout: 180_000,
+    },
     setupFiles: ["./.storybook/vitest.setup.ts"],
   },
 })

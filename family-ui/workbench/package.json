@@ -12,7 +12,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "test:unit": "vitest run --project unit",
-    "test:storybook": "vitest run --project storybook-light --project storybook-dark",
+    "test:storybook": "vitest run --project storybook-light --browser.fileParallelism=false && vitest run --project storybook-dark --browser.fileParallelism=false",
     "test:e2e": "playwright test",
     "check:catalog": "python3 scripts/check_catalog.py",
     "check:foundation": "pnpm run lint && pnpm run test:unit && pnpm run build && pnpm run build:storybook && pnpm run check:catalog",
