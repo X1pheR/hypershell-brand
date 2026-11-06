@@ -3,7 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "packageManager": "pnpm@10.20.0",
-  "engines": { "node": ">=24 <25" },
+  "engines": {
+    "node": ">=24 <25"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,6 +18,7 @@
     "test:e2e": "playwright test",
     "test:visual": "playwright test --config playwright.visual.config.ts",
     "check:catalog": "python3 scripts/check_catalog.py",
+    "check:mcp-docs": "node scripts/check_mcp_docs.mjs",
     "check:foundation": "pnpm run lint && pnpm run test:unit && pnpm run build && pnpm run build:storybook && pnpm run check:catalog",
     "preview": "vite preview"
   },
@@ -47,6 +50,7 @@
     "@storybook/addon-docs": "^10.6.6",
     "@storybook/addon-mcp": "10.6.6",
     "@storybook/addon-vitest": "10.6.6",
+    "@storybook/mcp": "10.6.6",
     "@storybook/react-vite": "^10.6.6",
     "@storybook/test": "^8.6.15",
     "@types/node": "^24.19.2",
