@@ -57,18 +57,15 @@ jobs:
             encoded = summary.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
             print("::error title=Native Storybook failing stories::" + encoded)
             failure_positions = [i for i, line in enumerate(lines) if re.match(r"\s*FAIL\s+", line)]
+            inventory = []
             for n, position in enumerate(failure_positions):
               end = failure_positions[n + 1] if n + 1 < len(failure_positions) else len(lines)
-              chunk = lines[position + 1:end]
-              markers = ("Received:", "Expected the HTML", "Element has ", "Fix any", "Unable to", "should have", "Cannot ", "AssertionError", "TypeError")
-              reasons = []
-              for line in chunk:
-                item = line.strip()
-                if item and any(marker in item for marker in markers) and item not in reasons:
-                  reasons.append(item)
-              detail = "\n".join([lines[position].strip()] + reasons[:6])[:1550]
-              encoded_detail = detail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
-              print(f"::error title=Native Storybook case {n + 1:02d}::" + encoded_detail)
+              reasons = [item.strip() for item in lines[position + 1:end] if "Element has " in item or "Unable to find" in item or "TypeError:" in item]
+              inventory.append(lines[position].strip() + " | " + " | ".join(dict.fromkeys(reasons[:2])))
+            for index in range(0, len(inventory), 8):
+              group = "\n".join(inventory[index:index + 8])[:3400]
+              escaped_group = group.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::error title=Native Storybook causes {index + 1}-{min(index + 8, len(inventory))}::" + escaped_group)
           # Make an ordinary GitHub check annotation available through the
           # read-only GitHub check-runs API; never include runner secrets.
           tail = "\n".join(lines[-36:])[:2200]
