@@ -1,0 +1,19 @@
+/* Storybook Docs only: Storybook's own docs wrappers use hard-coded light
+   backgrounds, independently of the native shadcn/Base UI theme tokens.
+   Scope these overrides to Docs in dark mode. Never modify upstream UI. */
+html.dark .sbdocs-wrapper,
+html.dark .sbdocs-preview {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+html.dark .sbdocs-title,
+html.dark .sbdocs h1,
+html.dark .sbdocs h2,
+html.dark .sbdocs h3 {
+  color: var(--foreground) !important;
+}
+
+html.dark .sbdocs-preview {
+  border-color: var(--border) !important;
+}

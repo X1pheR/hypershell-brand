@@ -1,0 +1,35 @@
+name: Native UI Workbench
+on:
+  push:
+    branches: [main, "feat/native-ui-workbench-*"]
+    paths: ["family-ui/workbench/**", ".github/workflows/native-ui-workbench.yml"]
+  pull_request:
+    paths: ["family-ui/workbench/**", ".github/workflows/native-ui-workbench.yml"]
+permissions:
+  contents: read
+concurrency:
+  group: native-ui-workbench-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: family-ui/workbench
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.20.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+          cache-dependency-path: family-ui/workbench/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run test:unit
+      - run: pnpm run build
+      - run: pnpm run build:storybook
+      - name: Verify AI component manifest
+        run: test -s storybook-static/manifests/components.json
