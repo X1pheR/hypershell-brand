@@ -35,6 +35,8 @@ jobs:
         run: pnpm run check:catalog
       - name: Verify official Storybook MCP docs-only contract
         run: pnpm run check:mcp-docs
+      - name: Verify private loopback MCP bearer authentication
+        run: pnpm run check:mcp-auth
       - name: Verify reviewed native A11y baseline
         run: python3 scripts/check_a11y_baseline.py
       - name: Install browser for official Storybook Vitest addon

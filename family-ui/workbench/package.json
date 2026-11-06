@@ -19,6 +19,7 @@
     "test:visual": "playwright test --config playwright.visual.config.ts",
     "check:catalog": "python3 scripts/check_catalog.py",
     "check:mcp-docs": "node scripts/check_mcp_docs.mjs",
+    "check:mcp-auth": "node scripts/check_mcp_server.mjs",
     "check:foundation": "pnpm run lint && pnpm run test:unit && pnpm run build && pnpm run build:storybook && pnpm run check:catalog",
     "preview": "vite preview"
   },
