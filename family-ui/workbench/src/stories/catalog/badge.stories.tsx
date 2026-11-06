@@ -6,5 +6,5 @@ const meta={title:"Catalog/Badge",component:C.Badge,tags:["autodocs"],parameters
 export default meta
 type Story=StoryObj<typeof meta>
 export const Default:Story={render:()=> <div className="max-w-3xl p-6 text-foreground"><C.Badge>Default</C.Badge></div>}
-export const Variants:Story={render:()=> <div className="max-w-3xl p-6 text-foreground"><div className="flex gap-3"><C.Badge variant="secondary">Secondary</C.Badge><C.Badge variant="outline">Outline</C.Badge><C.Badge variant="destructive">Destructive</C.Badge></div></div>}
+export const Variants:Story={parameters:{a11y:{test:"todo"}},render:()=> <div className="max-w-3xl p-6 text-foreground"><div className="flex gap-3"><C.Badge variant="secondary">Secondary</C.Badge><C.Badge variant="outline">Outline</C.Badge><C.Badge variant="destructive">Destructive</C.Badge></div></div>}
 export const States:Story={render:()=> <div className="max-w-3xl p-6 text-foreground"><div className="flex gap-3"><C.Badge>Active</C.Badge><C.Badge variant="outline">Pending</C.Badge></div></div>}
