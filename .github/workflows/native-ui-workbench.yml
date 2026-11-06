@@ -83,3 +83,22 @@ jobs:
           PY
           fi
           exit "$result"
+      - name: Run native Application Showcase E2E (desktop and mobile)
+        shell: bash
+        run: |
+          set +e
+          pnpm run test:e2e > "$RUNNER_TEMP/native-workbench-e2e.log" 2>&1
+          result=$?
+          set -e
+          cat "$RUNNER_TEMP/native-workbench-e2e.log"
+          if [ "$result" -ne 0 ]; then
+            python3 - <<'PY'
+          from pathlib import Path
+          import os
+          raw = (Path(os.environ["RUNNER_TEMP"]) / "native-workbench-e2e.log").read_text(errors="replace")
+          tail = "\n".join(raw.splitlines()[-55:])[:4500]
+          encoded = tail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+          print("::error title=Application Showcase E2E failure::" + encoded)
+          PY
+          fi
+          exit "$result"
