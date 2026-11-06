@@ -61,6 +61,9 @@ jobs:
             for n, position in enumerate(failure_positions):
               end = failure_positions[n + 1] if n + 1 < len(failure_positions) else len(lines)
               reasons = [item.strip() for item in lines[position + 1:end] if "Element has " in item or "Unable to find" in item or "TypeError:" in item]
+              if not reasons:
+                detail = [item.strip() for item in lines[position + 1:end] if item.strip() and ("Expected the HTML" in item or "Received:" in item or "must have" in item or "should have" in item or "violation" in item.lower())]
+                reasons = detail[:4] or [item.strip() for item in lines[position + 1:end] if item.strip()][:8]
               inventory.append(lines[position].strip() + " | " + " | ".join(dict.fromkeys(reasons[:2])))
             for index in range(0, len(inventory), 8):
               group = "\n".join(inventory[index:index + 8])[:3400]
