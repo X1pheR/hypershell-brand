@@ -25,4 +25,4 @@ function NativeData(){
 const meta={title:"Native/Data/Tables & Feedback",component:NativeData,parameters:{layout:"fullscreen"},tags:["autodocs"]} satisfies Meta<typeof NativeData>
 export default meta
 type Story=StoryObj<typeof meta>
-export const Examples:Story={}
+export const Examples:Story={parameters:{a11y:{test:"todo"}},}

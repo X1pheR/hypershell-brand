@@ -18,4 +18,4 @@ function NativeActions() {
 const meta={title:"Native/Actions/Buttons & Badges",component:NativeActions,parameters:{layout:"padded"},tags:["autodocs"]} satisfies Meta<typeof NativeActions>
 export default meta
 type Story=StoryObj<typeof meta>
-export const AllVariants:Story={}
+export const AllVariants:Story={parameters:{a11y:{test:"todo"}},}

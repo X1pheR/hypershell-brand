@@ -33,6 +33,8 @@ jobs:
       - run: pnpm run build:storybook
       - name: Verify native component catalog and AI manifest
         run: pnpm run check:catalog
+      - name: Verify reviewed native A11y baseline
+        run: python3 scripts/check_a11y_baseline.py
       - name: Install browser for official Storybook Vitest addon
         run: pnpm exec playwright install --with-deps chromium
       - name: Run native Storybook component and accessibility tests
