@@ -7,5 +7,5 @@ export default defineConfig({
   ...appConfig,
   testDir: "./tests/visual",
   use: { ...appConfig.use, reducedMotion: "reduce", locale: "en-US", timezoneId: "Europe/Amsterdam" },
-  snapshotPathTemplate: "{testDir}/__screenshots__/{projectName}/{arg}",
+  snapshotPathTemplate: "{testDir}/__screenshots__/{projectName}/{arg}{ext}",
 })
