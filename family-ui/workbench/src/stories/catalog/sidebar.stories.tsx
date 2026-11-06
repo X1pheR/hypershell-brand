@@ -1,0 +1,7 @@
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import * as C from "@/components/ui/sidebar"
+const meta={title:"Catalog/Sidebar",component:C.Sidebar,tags:["autodocs"],parameters:{layout:"fullscreen"}} satisfies Meta<typeof C.Sidebar>
+export default meta
+type Story=StoryObj<typeof meta>
+export const Default:Story={render:()=> <C.SidebarProvider defaultOpen><div className="flex min-h-72 w-full"><C.Sidebar collapsible="none"><C.SidebarHeader>Workspace</C.SidebarHeader><C.SidebarContent><C.SidebarGroup><C.SidebarGroupLabel>Navigation</C.SidebarGroupLabel><C.SidebarGroupContent><C.SidebarMenu><C.SidebarMenuItem><C.SidebarMenuButton>Overview</C.SidebarMenuButton></C.SidebarMenuItem><C.SidebarMenuItem><C.SidebarMenuButton>Settings</C.SidebarMenuButton></C.SidebarMenuItem></C.SidebarMenu></C.SidebarGroupContent></C.SidebarGroup></C.SidebarContent><C.SidebarFooter>Example only</C.SidebarFooter></C.Sidebar><C.SidebarInset className="p-6">Main workspace content</C.SidebarInset></div></C.SidebarProvider>}
+export const Variants:Story={render:()=> <C.SidebarProvider defaultOpen><div className="flex min-h-72 w-full"><C.Sidebar collapsible="icon"><C.SidebarHeader>Reference</C.SidebarHeader><C.SidebarContent><C.SidebarMenu><C.SidebarMenuItem><C.SidebarMenuButton>Dashboard</C.SidebarMenuButton></C.SidebarMenuItem></C.SidebarMenu></C.SidebarContent></C.Sidebar><C.SidebarInset className="p-6"><C.SidebarTrigger/> Collapsible sidebar</C.SidebarInset></div></C.SidebarProvider>}
