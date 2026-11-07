@@ -26,9 +26,12 @@ const days = [
   { day: "Sun", accepted: 26, pending: 5, duration: 36 },
 ] as const
 
+const acceptedTotal = days.reduce((sum, row) => sum + row.accepted, 0)
+const pendingTotal = days.reduce((sum, row) => sum + row.pending, 0)
+const total = acceptedTotal + pendingTotal
 const totals = [
-  { category: "Accepted", count: 164, fill: "var(--chart-1)" },
-  { category: "Pending", count: 34, fill: "var(--chart-2)" },
+  { category: "Accepted", count: acceptedTotal, fill: "var(--chart-1)" },
+  { category: "Pending", count: pendingTotal, fill: "var(--chart-2)" },
 ] as const
 const categories = [
   { category: "Forms", count: 31 },
@@ -163,7 +166,6 @@ function NativeChartResearch({ kind }: { kind: Kind }) {
                     <Pie data={totals} dataKey="count" nameKey="category" innerRadius={56} outerRadius={92}>
                       {totals.map(row => <Cell key={row.category} fill={row.fill} />)}
                     </Pie>
-                    <ChartLegend content={<ChartLegendContent nameKey="category" />} />
                   </PieChart>
                 ) : kind === "radar" ? (
                   <RadarChart accessibilityLayer data={dimensions} outerRadius="68%">
@@ -175,7 +177,7 @@ function NativeChartResearch({ kind }: { kind: Kind }) {
                     <ChartLegend content={<ChartLegendContent />} />
                   </RadarChart>
                 ) : kind === "radial" ? (
-                  <RadialBarChart accessibilityLayer data={[{ name: "Accepted", share: 164 / 198 * 100, fill: "var(--chart-1)" }]}
+                  <RadialBarChart accessibilityLayer data={[{ name: "Accepted", share: acceptedTotal / total * 100, fill: "var(--chart-1)" }]}
                     innerRadius="50%" outerRadius="90%" startAngle={90} endAngle={-270}>
                     <PolarGrid gridType="circle" radialLines={false} />
                     <RadialBar dataKey="share" background cornerRadius={8} />
@@ -199,6 +201,11 @@ function NativeChartResearch({ kind }: { kind: Kind }) {
                   </LineChart>
                 )}
               </ChartContainer>
+              {(kind === "donut" || kind === "radial") && (
+                <p className="mt-2 text-center text-sm">
+                  Accepted: {acceptedTotal} · Pending: {pendingTotal} · Total: {total}
+                </p>
+              )}
               <figcaption className="mt-2 text-xs text-muted-foreground">
                 Visual example only. Exact values are available in the data table below.
               </figcaption>
@@ -229,7 +236,14 @@ export const LineTrend: Story = { args: { kind: "line" } }
 export const AreaTrend: Story = { args: { kind: "area" } }
 export const StackedBars: Story = { args: { kind: "stacked" } }
 export const HorizontalBars: Story = { args: { kind: "horizontal" } }
-export const DonutPartToWhole: Story = { args: { kind: "donut" } }
+export const DonutPartToWhole: Story = { args: { kind: "donut" },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText(/Accepted: 164 · Pending: 34 · Total: 198/)).toBeVisible()
+    await userEvent.click(canvas.getByText("View exact example data"))
+    await expect(canvas.getByRole("table")).toBeVisible()
+  },
+}
 export const RadarComparison: Story = { args: { kind: "radar" } }
 export const RadialShare: Story = { args: { kind: "radial" } }
 export const ScatterRelationship: Story = { args: { kind: "scatter" } }
