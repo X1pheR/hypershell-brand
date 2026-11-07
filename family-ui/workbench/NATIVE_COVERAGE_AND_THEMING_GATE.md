@@ -61,8 +61,8 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 | S01 | Application shell, responsive navigation, contextual page/title/actions | Five-page shell, drawer, light/dark | Partial: deep nav/help/context | P0 |
 | S02 | Dense overview, metrics, cards and linked operational drill-down | Overview dashboard | Partial: actual drill-down and truthful stale state | P0 |
 | S03 | Search/sort/filter directory and table | Members | Partial: paging, column density, filters persisted in URL | P0 |
-| S04 | View record detail and related context (layout NOT prescribed) | Three native Card/Sheet/Dialog comparison stories (not full app pages) | Function comparison built; route and responsive acceptance open | P0 |
-| S05 | Inspect a selected item without losing context; dismiss/return/focus; optional persistent comparison | Three neutral Card/Sheet/Dialog stories plus play assertions; not product integration | **Pattern decision open:** evaluate Drawer, Resizable, route, mobile/zoom; legacy lock/maximize not mandated | P0 |
+| S04 | View record detail and related context (layout NOT prescribed) | Six native Card/Sheet/Dialog/Drawer/Resizable/MemoryRouter examples (not app pages); new three pending CI | Functional comparison source prepared; external deep links and product context remain unverified | P0 |
+| S05 | Inspect a selected item without losing context; dismiss/return/focus; optional persistent comparison | Six neutral native composition stories, shared fictional fixture, new three pending CI | **Pattern decision open:** compare all alternatives in browser, mobile/400%-zoom/touch/long content; legacy lock/maximize not mandated | P0 |
 | S06 | Select and safely act on multiple records where products require it | None as integrated workflow | Evaluate native checkbox + headless table selection and confirmation; product controls scope | P0 |
 | S07 | Task/run list, status, progress, detail, retry/cancel boundaries | Activity is non-operational | Gap | P0 |
 | S08 | History/event timeline, audit/change log and compare/diff | Basic Activity view | Partial: actual timeline/detail/diff | P0 |
@@ -101,6 +101,14 @@ Read-only official navigation audit: current Base UI documentation lists 66 comp
 - AI Elements form an additional site category, separate from these 66 Base UI navigation entries; admit only justified agent/chat functional needs, not as blanket source modules.
 
 Official references: https://ui.shadcn.com/docs/components/base/empty ; https://ui.shadcn.com/docs/components/base/data-table ; https://ui.shadcn.com/blocks . Pinned source audit via local src/components/ui enumeration. Recheck after upstream version changes. No additional vendor files installed.
+
+## Native comparison #2 — 2026-11-07 (source candidate, NOT Gate N acceptance)
+
+Added three more compositions for **the identical synthetic record-inspection task** as the original Card/Sheet/Dialog study: native touch-oriented Drawer, native Resizable simultaneous panels with a stacked Card fallback on narrow screens, and a React Router MemoryRouter-driven detail-view navigation example. The six stories share precisely one fictional data fixture in `record-inspection-data.ts`; `RecordDetails` is just a story-local field renderer, **not a promoted Family UI shared component**. All primitive source files and the original five app screenshots are unchanged.
+
+**Meaningful differences to assess:** Drawer uses native swipe/modal semantics; Resizable allows both list and detail visible on wide screens and deliberately stacks native Cards on narrow screens; MemoryRouter demonstrates in-app selection/return without a legacy side inspector, but **does not prove external deep linking, browser history, production routes or product navigation contracts**. None is chosen as universal behavior. The responsive split and semantic focus/keyboard controls require exact-browser verification rather than assumptions from markup.
+
+**Acceptance evidence still required:** automated Storybook light/dark play and axe for all six, initial CI gate, private preview DOM, actual mobile and 400%-zoom/reflow, keyboard focus return, repeated selections, scroll/long-content behavior, and human assessment of whether any shared reusable pattern is warranted. Compile and lint pass; heavy local Storybook build currently queue-limited, so source publication must be followed by exact GitHub CI acceptance. Keep Gate N OPEN and Theme Gate T HARD BLOCKED.
 
 ## Functional research checkpoint — 2026-11-07 (NOT accepted)
 

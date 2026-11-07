@@ -1,31 +1,15 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, userEvent, waitFor, within } from "@storybook/test"
-import { Badge } from "@/components/ui/badge"
+import { records, type RecordSample } from "./record-inspection-data"
+import { RecordDetails } from "./record-inspection-fixture"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
-// Synthetic study of one user capability; NOT a reusable product inspector or a
-// reproduction of existing HomeSight / Reach / SDM vanilla components.
-const records = [
-  { id: "EX-101", name: "Inventory review", kind: "Review", status: "Ready", owner: "Ada", summary: "Fictional inventory changes; no live source or backend." },
-  { id: "EX-102", name: "Service lifecycle check", kind: "Check", status: "Pending", owner: "Morgan", summary: "This check is synthetic and its status is not a health signal." },
-  { id: "EX-103", name: "Documentation refresh", kind: "Draft", status: "Draft", owner: "Robin", summary: "A sample draft with no mutation or save action." },
-] as const
-type RecordSample = (typeof records)[number]
+// Synthetic study of one user capability; NOT a legacy vanilla inspector.
 type Mode = "inline" | "sheet" | "dialog"
-
-function Details({ record }: { record: RecordSample }) {
-  return <dl className="grid grid-cols-[5rem_minmax(0,1fr)] gap-x-3 gap-y-3 text-sm">
-    <dt className="text-muted-foreground">ID</dt><dd>{record.id}</dd>
-    <dt className="text-muted-foreground">Type</dt><dd>{record.kind}</dd>
-    <dt className="text-muted-foreground">Status</dt><dd><Badge variant="outline">{record.status}</Badge></dd>
-    <dt className="text-muted-foreground">Owner</dt><dd>{record.owner}</dd>
-    <dt className="text-muted-foreground">Summary</dt><dd className="min-w-0 break-words">{record.summary}</dd>
-  </dl>
-}
 
 function NativeRecordStudy({ mode }: { mode: Mode }) {
   const [selected, setSelected] = useState<RecordSample>(records[0])
@@ -71,7 +55,7 @@ function NativeRecordStudy({ mode }: { mode: Mode }) {
           <CardTitle>{selected.name}</CardTitle>
           <CardDescription>In-page details. Try selecting another item.</CardDescription>
         </CardHeader>
-        <CardContent><Details record={selected} /></CardContent>
+        <CardContent><RecordDetails record={selected} /></CardContent>
       </Card>
     </div>}
     {mode === "sheet" && <Sheet open={open} onOpenChange={setOpen}>
@@ -80,7 +64,7 @@ function NativeRecordStudy({ mode }: { mode: Mode }) {
         <SheetHeader><SheetTitle>{selected.name}</SheetTitle>
           <SheetDescription>Official native Sheet · Return to the record list when finished.</SheetDescription>
         </SheetHeader>
-        <div className="px-4 pb-4"><Details record={selected} /></div>
+        <div className="px-4 pb-4"><RecordDetails record={selected} /></div>
         <SheetFooter><SheetClose render={<Button variant="outline" />}>Return to records</SheetClose></SheetFooter>
       </SheetContent>
     </Sheet>}
@@ -90,7 +74,7 @@ function NativeRecordStudy({ mode }: { mode: Mode }) {
         <DialogHeader><DialogTitle>{selected.name}</DialogTitle>
           <DialogDescription>Official native Dialog · Focused details, dismiss with Escape.</DialogDescription>
         </DialogHeader>
-        <Details record={selected} />
+        <RecordDetails record={selected} />
         <DialogFooter><DialogClose render={<Button />}>Return to records</DialogClose></DialogFooter>
       </DialogContent>
     </Dialog>}
