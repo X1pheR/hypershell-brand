@@ -102,6 +102,38 @@ Read-only official navigation audit: current Base UI documentation lists 66 comp
 
 Official references: https://ui.shadcn.com/docs/components/base/empty ; https://ui.shadcn.com/docs/components/base/data-table ; https://ui.shadcn.com/blocks . Pinned source audit via local src/components/ui enumeration. Recheck after upstream version changes. No additional vendor files installed.
 
+## Gate N — quantitative visualization and diagram capability study (2026-11-07)
+
+**Functional requirement, not legacy UI cloning:** current Hypershell products can need trustworthy time series, categorical totals, proportions, comparisons, correlations, no-data states, static service dependency diagrams and interactive resource relationships. The old HomeSight/Reach/SDM chart styling, graph engines or screen geometry are discovery evidence only, not a mandated design for our shared base.
+
+### Neutral charts — pinned native implementation candidate
+
+`src/stories/patterns/native-data-visualizations.stories.tsx` contains **ten Storybook research states** built strictly on existing official `src/components/ui/chart.tsx` plus pinned `recharts@3.8.0`: line trend, area, stacked bars, horizontal categories, donut part-to-whole, radar, radial share, scatter relationships, a metric-switching interactive line and an explicit no-measurements state. These use a single internally consistent synthetic 7-day dataset and derived totals (Accepted = 164, Pending = 34, total 198); the radar is separately labelled illustrative. Every plotted numeric example has an expandable accessible data table with exact values. The interactive selector uses native `Button` with `aria-pressed`, and charts use the official Recharts accessibility layer where offered. No app source, dashboard CSS, native chart module, chart palette or Hypershell theme has been altered. **Story presence does not establish WCAG or production chart readiness.**
+
+| Requirement | Native fit to assess | Evidence/acceptance still required | Ownership hypothesis |
+| --- | --- | --- | --- |
+| Ordered time series / event volume | `ChartContainer` + `LineChart`/`AreaChart`/`BarChart` | genuine point keyboard navigation, responsive labels, gaps/stale, time zones | shared primitive, product-owned data/semantics |
+| Category comparison and stacked totals | `BarChart` horizontal/stacked + `ChartLegend`/`ChartTooltip` | sum and legend integrity, contrast, large cardinality, ordering | native compositions per product |
+| Part-to-whole and radial share | `PieChart` donut / `RadialBarChart` | proportion truth, exact text equivalent, tiny slices, noncolor cues | limited task-specific use; bar may be better |
+| Multi-axis scoring radar | `RadarChart` | common comparable scale, intentional rating semantics and data table | not a default monitoring widget |
+| Correlation | `ScatterChart` | sampling, axis units, tooltips and exact point access | product-owned analysis |
+| Interactive filtering and no-data states | native button state + line / explicit status | keyboard/axe, filter data correctness, no false zero, error/stale variants | shared native pattern only if repeated |
+
+Native shadcn official source: https://ui.shadcn.com/docs/components/base/chart ; official examples https://ui.shadcn.com/charts/area , https://ui.shadcn.com/charts/line , https://ui.shadcn.com/charts/bar , https://ui.shadcn.com/charts/pie , https://ui.shadcn.com/charts/radar , https://ui.shadcn.com/charts/radial . **Do not** claim implementing every official chart variant or every needed visualization. The existing example Dashboard still has a synthetic CSS bar illustration; decide separately whether to replace it with an actually reusable native Chart after representative chart acceptance and visual-baseline review.
+
+### Diagrams and graphs — separate capability-admission decision; NO new dependency yet
+
+| Need | Candidate | Evidence / decision boundary |
+| --- | --- | --- |
+| Static technical architecture, sequences and flowcharts from text | Mermaid (official `securityLevel: strict` for untrusted content) | rendered text+SVG, safe markup/CSP, reduced motion, accessible text/alternate view, source version and export; no click/HTML from loose mode |
+| Interactive workflow/node editor | React Flow (`@xyflow/react`, MIT core) | native keyboard/focus selection/drag, layout/sizing, touch, edge navigation, React lifecycle, graph size, product ownership; Pro features not assumed open source |
+| High-density dependency/network graph | Cytoscape.js (MIT core) and possibly existing product graph engine | large graph performance, stable layouts, zoom/selection, text equivalent, filtering and data semantics; do not port HomeSight vanilla implementation |
+| Shared native UI shell surrounding any graph | shadcn `Card`, `Tabs`, `Button`, `Sheet`, `Tooltip`, `Resizable` etc. | no global Diagram abstraction until actual cross-product reuse; graph engine remains specialist/product-owned by default |
+
+Authoritative references: https://reactflow.dev/index , https://reactflow.dev/learn/advanced-use/accessibility , https://reactflow.dev/learn/advanced-use/performance , https://mermaid.js.org/intro/syntax-reference.html , https://mermaid.js.org/config/usage , https://js.cytoscape.org/ . This is a **candidate-fit study, not an adoption approval**. Any new library must pass exact version/license/security/CSP/performance/keyboard review, owner and release gate. No unauthorised broad dependency additions.
+
+**Gate N status:** chart source gallery is a *candidate* pending exact light/dark Storybook axe/play, published private preview, mobile and actual 400% zoom, numeric consistency and appropriate noncolor alternatives. Diagrams remain research-only. **Gate T Hypershell theming HARD BLOCKED.**
+
 ## Native comparison #2 — 2026-11-07 (source candidate, NOT Gate N acceptance)
 
 Added three more compositions for **the identical synthetic record-inspection task** as the original Card/Sheet/Dialog study: native touch-oriented Drawer, native Resizable simultaneous panels with a stacked Card fallback on narrow screens, and a React Router MemoryRouter-driven detail-view navigation example. The six stories share precisely one fictional data fixture in `record-inspection-data.ts`; `RecordDetails` is just a story-local field renderer, **not a promoted Family UI shared component**. All primitive source files and the original five app screenshots are unchanged.
