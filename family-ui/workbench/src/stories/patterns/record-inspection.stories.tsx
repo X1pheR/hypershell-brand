@@ -40,7 +40,6 @@ function NativeRecordStudy({ mode }: { mode: Mode }) {
         {records.map((record) => {
           const props = { variant: "outline" as const,
             className: "h-auto min-h-14 w-full justify-start whitespace-normal py-2 text-left",
-            "aria-label": `Inspect ${record.name}`,
             onClick: () => setSelected(record) }
           const label = <span className="flex flex-col items-start gap-1">
             <span className="font-medium">{record.name}</span>
@@ -120,7 +119,7 @@ export const InlineDetails: Story = {
   args: { mode: "inline" },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const select = canvas.getByRole("button", { name: "Inspect Service lifecycle check" })
+    const select = canvas.getByRole("button", { name: /Service lifecycle check/ })
     await userEvent.click(select)
     await expect(select).toHaveAttribute("aria-pressed", "true")
     await expect(within(canvas.getByRole("region", { name: "Selected record details" })).getByText("EX-102")).toBeVisible()
@@ -141,7 +140,7 @@ export const DialogDetails: Story = {
   args: { mode: "dialog" },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    await userEvent.click(canvas.getByRole("button", { name: "Inspect Documentation refresh" }))
+    await userEvent.click(canvas.getByRole("button", { name: /Documentation refresh/ }))
     const dialog = within(document.body).getByRole("dialog", { name: "Documentation refresh" })
     await expect(within(dialog).getByText("EX-103")).toBeVisible()
     await userEvent.click(within(dialog).getByRole("button", { name: "Return to records" }))
