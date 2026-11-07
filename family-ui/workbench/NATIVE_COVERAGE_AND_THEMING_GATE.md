@@ -61,8 +61,8 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 | S01 | Application shell, responsive navigation, contextual page/title/actions | Five-page shell, drawer, light/dark | Partial: deep nav/help/context | P0 |
 | S02 | Dense overview, metrics, cards and linked operational drill-down | Overview dashboard | Partial: actual drill-down and truthful stale state | P0 |
 | S03 | Search/sort/filter directory and table | Members | Partial: paging, column density, filters persisted in URL | P0 |
-| S04 | View record detail and related context (layout NOT prescribed) | None as integrated page | Functional need to assess; route/dialog/sheet options | P0 |
-| S05 | Inspect a selected item without losing context; dismiss/return/focus; optional persistent comparison | No integrated native comparison | **Pattern decision open:** evaluate Sheet, Dialog, Drawer, inline details, Resizable; legacy lock/maximize not mandated | P0 |
+| S04 | View record detail and related context (layout NOT prescribed) | Three native Card/Sheet/Dialog comparison stories (not full app pages) | Function comparison built; route and responsive acceptance open | P0 |
+| S05 | Inspect a selected item without losing context; dismiss/return/focus; optional persistent comparison | Three neutral Card/Sheet/Dialog stories plus play assertions; not product integration | **Pattern decision open:** evaluate Drawer, Resizable, route, mobile/zoom; legacy lock/maximize not mandated | P0 |
 | S06 | Select and safely act on multiple records where products require it | None as integrated workflow | Evaluate native checkbox + headless table selection and confirmation; product controls scope | P0 |
 | S07 | Task/run list, status, progress, detail, retry/cancel boundaries | Activity is non-operational | Gap | P0 |
 | S08 | History/event timeline, audit/change log and compare/diff | Basic Activity view | Partial: actual timeline/detail/diff | P0 |
@@ -89,6 +89,23 @@ P0 = high-priority *functional requirement to evaluate*, **NOT** an instruction 
 ## Cross-cutting state and behavior matrix required for each applicable archetype
 
 Evidence must cover light/dark, desktop/mobile/400% zoom, screen reader labels where material, keyboard/touch/focus, empty/first-run, loading/pending, success, validation error, service error, unavailable/offline, partial/stale/degraded, authorization denied, no-results, long/overflowing data, and unsaved change recovery. Inapplicable states need an explicit N/A rationale. Use synthetic data that is internally consistent and truthful; no fake operational success.
+
+## Functional research checkpoint — 2026-11-07 (NOT accepted)
+
+**Products supply capabilities, not UI implementations.** HomeSight users need to inspect a selected item and its relationships; Reach provides read-only Task/Run details; SDM operators inspect configuration. Their existing custom vanilla inspectors and layout choices are NOT a blueprint for Family UI.
+
+**Initial native exploration:** `src/stories/patterns/record-inspection.stories.tsx` compares three solutions to the same synthetic record-inspection task: (a) persistent inline Card detail; (b) native Sheet with modal context; (c) native Dialog for focused details. Three Storybook play assertions exercise selection and dismissal. No native shadcn source/colors, existing five app pages, or 20 visual goldens changed; static Storybook build and original 63 catalog families/63 Docs/134 stories passed. This is a prototype, not a selected reusable component or a new product inspector.
+
+**Outstanding evaluation:** same-task Sheet vs Dialog vs Card plus native Drawer/Resizable/deep route; context retention, focus restoration, keyboard, touch, long details, mobile and 400% zoom, light/dark a11y. Avoid a universal `SideInspector`; accept only justified reusable capabilities. The following patterns are still hypotheses:
+
+| Native candidate | Potential fit | Open concern |
+| --- | --- | --- |
+| Card + inline detail | Nonmodal, simultaneous context/details | Narrow viewport reflow, long content |
+| Sheet | Contextual overlay, short to medium details | Underlying list inaccessible while modal; focus |
+| Dialog | Short focused inspection, deliberate interaction | Repeated inspection, density |
+| Drawer / Resizable / route | Touch / simultaneous workspaces / deep links | Need same-task integrated comparison before any shared decision |
+
+**Gate N remains OPEN. Gate T theming remains BLOCKED.**
 
 ## Native admission checklist — gate N (BLOCKED)
 
