@@ -41,6 +41,11 @@ try {
   })
   const unauthorized = await fetch(`${base}/mcp`, { method: "GET" })
   if (unauthorized.status !== 401) throw new Error(`Anonymous HTTP ${unauthorized.status} instead of 401`)
+  const wrongToken = (token[0] === "0" ? "1" : "0") + token.slice(1)
+  const invalidBearer = await fetch(`${base}/mcp`, {
+    method: "GET", headers: { authorization: `Bearer ${wrongToken}` },
+  })
+  if (invalidBearer.status !== 401) throw new Error(`Wrong bearer HTTP ${invalidBearer.status} instead of 401`)
   const missing = await fetch(`${base}/other`, { method: "GET" })
   if (missing.status !== 404) throw new Error("Non-MCP path not rejected")
   const init = await request("initialize", {
@@ -59,7 +64,7 @@ try {
   const body = await catalog.text()
   if (catalog.status !== 200 || !body.includes("catalog-button") || !body.includes("catalog-calendar"))
     throw new Error("Authenticated native catalog missing")
-  console.log("PASS native Storybook MCP: loopback only, HTTP 401 anonymous, HTTP 404 elsewhere")
+  console.log("PASS native Storybook MCP: loopback only, HTTP 401 anonymous and wrong bearer, HTTP 404 elsewhere")
   console.log("PASS authenticated docs-list/docs-show/docs-show-story; no dev or test tools")
 } finally {
   child.kill("SIGTERM")
