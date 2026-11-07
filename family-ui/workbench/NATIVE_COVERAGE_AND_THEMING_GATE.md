@@ -90,13 +90,25 @@ P0 = high-priority *functional requirement to evaluate*, **NOT** an instruction 
 
 Evidence must cover light/dark, desktop/mobile/400% zoom, screen reader labels where material, keyboard/touch/focus, empty/first-run, loading/pending, success, validation error, service error, unavailable/offline, partial/stale/degraded, authorization denied, no-results, long/overflowing data, and unsaved change recovery. Inapplicable states need an explicit N/A rationale. Use synthetic data that is internally consistent and truthful; no fake operational success.
 
+## Official shadcn Base UI scope audit — 2026-11-07
+
+Read-only official navigation audit: current Base UI documentation lists 66 component-category links. The current pinned Workbench has 63 native component source files and all 63 names are in that official index. The three entries absent as individual source modules are Data Table, Date Picker and Typography; these are composite guides/recipes, not evidence of three missing mandatory vanilla-style components. This audit proves navigation-category/source coverage only, not behavior, blocks or product completeness.
+
+- Data Table: official guide builds task-specific tables from native Table and TanStack Table. Product data, columns, sorting/paging and action semantics are product-owned; do not force one universal DataGrid into the shared base.
+- Date Picker: assess native Calendar, Popover and input composition against actual date/time/timezone requirements first.
+- Typography: a neutral presentation guide, not a license for Hypershell theme/token adoption during Gate N.
+- Official shadcn blocks such as dashboard and sidebar are functional design references, not mandatory layouts to transplant; login/signup blocks are not automatically necessary when Pocket ID owns authentication.
+- AI Elements form an additional site category, separate from these 66 Base UI navigation entries; admit only justified agent/chat functional needs, not as blanket source modules.
+
+Official references: https://ui.shadcn.com/docs/components/base/empty ; https://ui.shadcn.com/docs/components/base/data-table ; https://ui.shadcn.com/blocks . Pinned source audit via local src/components/ui enumeration. Recheck after upstream version changes. No additional vendor files installed.
+
 ## Functional research checkpoint — 2026-11-07 (NOT accepted)
 
 **Products supply capabilities, not UI implementations.** HomeSight users need to inspect a selected item and its relationships; Reach provides read-only Task/Run details; SDM operators inspect configuration. Their existing custom vanilla inspectors and layout choices are NOT a blueprint for Family UI.
 
-**Initial native exploration:** `src/stories/patterns/record-inspection.stories.tsx` compares three solutions to the same synthetic record-inspection task: (a) persistent inline Card detail; (b) native Sheet with modal context; (c) native Dialog for focused details. Three Storybook play assertions exercise selection and dismissal. No native shadcn source/colors, existing five app pages, or 20 visual goldens changed; static Storybook build and original 63 catalog families/63 Docs/134 stories passed. This is a prototype, not a selected reusable component or a new product inspector.
+**Initial native exploration:** `src/stories/patterns/record-inspection.stories.tsx` compares three solutions to the same synthetic record-inspection task: (a) persistent inline Card detail; (b) native Sheet with modal context; (c) native Dialog for focused details. Three Storybook play assertions exercise selection and dismissal. A native visible-button-name issue and two overlay timing assertions were corrected **without exceptions or native patches**; latest GitHub `verify` plus 20-golden jobs both passed on source `a5d97b4` (light/dark a11y and interaction runs). No native shadcn source/colors, existing five app pages, or 20 visual goldens changed; static Storybook build and original 63 catalog families/63 Docs/134 stories passed. The accepted private OCI Storybook preview was selectively updated from that exact source with strict CSP externalization, no gateway/sidecar restart, and private rollback copy at `/srv/hypershell/tmp/storybook-native-inspection-preview-recovery-20261107`. On the live 390px Sheet example, selection EX-102 displayed inside the dialog, focus stayed within it, Escape returned focus to the selected record button, and document scrollWidth matched viewport width. The only observed console error was the existing missing favicon request. This is a prototype, not a selected reusable component or a new product inspector.
 
-**Outstanding evaluation:** same-task Sheet vs Dialog vs Card plus native Drawer/Resizable/deep route; context retention, focus restoration, keyboard, touch, long details, mobile and 400% zoom, light/dark a11y. Avoid a universal `SideInspector`; accept only justified reusable capabilities. The following patterns are still hypotheses:
+**Outstanding evaluation:** same-task Sheet vs Dialog vs Card plus native Drawer/Resizable/deep route; long details, repeated rapid record selection, real touch and actual browser 400% zoom. Light/dark Storybook axe/play and one authenticated mobile Sheet focus/overflow flow passed, but these do **not** establish complete screen accessibility or select a single global solution. Avoid a universal `SideInspector`; accept only justified reusable capabilities. The following patterns are still hypotheses:
 
 | Native candidate | Potential fit | Open concern |
 | --- | --- | --- |
