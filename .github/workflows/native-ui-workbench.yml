@@ -106,3 +106,27 @@ jobs:
           PY
           fi
           exit "$result"
+
+  visual:
+    name: approved native visual goldens (20)
+    runs-on: ubuntu-24.04
+    container:
+      image: node@sha256:c86ecead9e55a5210ac1727de38a4ca840bf03dcaf34dc9749addbf383b1920c
+    defaults:
+      run:
+        working-directory: family-ui/workbench
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.20.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+          cache-dependency-path: family-ui/workbench/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Install pinned Playwright Chromium and runtime dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Compare all 20 approved native snapshots (no auto-update)
+        run: pnpm run test:visual
