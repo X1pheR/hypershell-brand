@@ -4,12 +4,12 @@
 
 ## Non-negotiable sequencing
 
-1. **NATIVE / NEUTRAL ONLY:** capture complete known Hypershell-owned product needs, upstream component and official block choices, interaction compositions and state variants. Build or qualify examples in the pinned original shadcn/Base UI neutral styles. Never change original component source just to satisfy a design preference or mask accessibility failures.
+1. **NATIVE / NEUTRAL / FUNCTION-FIRST ONLY:** extract needed user capabilities and behavior from Hypershell-owned products, then evaluate how current official shadcn/Base UI components and blocks would best deliver them. Existing vanilla CSS, screen geometry, DOM structures, bespoke widgets and implementation idioms are **NOT** a design specification for the new base. Build or qualify examples with the pinned original neutral native components; do not transplant old layouts, implement mandatory vanilla-equivalent widgets, or patch native source to satisfy a previous presentation choice.
 2. **NATIVE COVERAGE ACCEPTANCE:** verify the inventory and representative implementations across the material product families below. Record missing capabilities, consciously excluded needs, upstream limitations, specialist-adapter decisions, and visual/behavior/accessibility evidence. Require an **explicit operator acceptance** of the versioned coverage matrix and neutral reference.
 3. **EXPLICIT THEMING AUTHORIZATION (SEPARATE GATE):** even a merged native foundation PR, successful CI or complete catalog does **not** authorize a Hypershell theme, branding, signature colors, token overrides, custom native components, or consumer migration. A separate decision and change must first establish theme token mapping, semantic statuses, design examples, keyboard/focus/contrast constraints, light/dark parity, and product-specific reference acceptance.
 4. **PRODUCT MIGRATIONS LATER:** after theming acceptance, each Hypershell-owned consumer still needs its own product-data, interaction, accessibility, recovery and release gates. This source PR does not perform those migrations.
 
-Completeness means **all identified needs of current/foreseeable owned products**, with a reviewed disposition per row and coverage evidence; it does not pretend to foresee literally every future UI. Any newly identified material gap reopens the coverage gate before theming. Do not require 30 separate screens when one coherent native reference can validate multiple patterns, but do not mistake a static Storybook illustration for an end-to-end working pattern.
+Completeness means **all identified reusable functional needs of current/foreseeable owned products have an assessed native solution or an explicit ownership/defer decision**. It does not mean reimplementing every existing screen or guaranteeing all future UI needs. A missing old custom widget is not automatically a base-UI gap; only an unmet *capability* is. New material functional needs reopen the gate. A few coherent native examples may validate multiple patterns; static Storybook examples alone do not prove working behavior.
 
 ## Observed baseline (not coverage acceptance)
 
@@ -19,6 +19,21 @@ Completeness means **all identified needs of current/foreseeable owned products*
 - **20** manually reviewed/committed visual golden images (5 pages × desktop/mobile × light/dark); CI currently green. These are baseline regression proofs **only for those five pages**.
 - Existing Playwright functional coverage is representative; selected Combobox, Resizable, Dialog/Escape, Slider interactions were browser-verified. This does not mean every component has full keyboard/touch/accessibility coverage.
 - **12** narrowly documented upstream native contrast exceptions remain; must have individually reviewed disposition by **2026-12-06**. Do not equate green CI with full WCAG AA.
+
+## Function-to-native mapping: never treat legacy UI as a reference implementation
+
+**Discovery input:** HomeSight, Reach, SDM and other existing vanilla UIs describe *what the user must achieve*, data and workflow constraints, and safety/accessibility invariants. They do **not** prescribe *where* or *how* the new UI displays those functions. No legacy sidebar/inspector/menu/grid/colour/geometry parity is required in the shared native base. At future *product* migration, preserve accepted outcomes and data contracts but permit a different, explicitly accepted native UX.
+
+**For every requirement, use this decision sequence:** (1) state the capability and measurable success outcome without naming an existing widget; (2) inspect official Base UI shadcn primitives and blocks; (3) compare two or more appropriate native compositions/interaction patterns when the choice is meaningful; (4) prefer the simplest accessible/responsive native solution; (5) qualify a proven specialist library if native primitives do not cover required domain-specific behavior; (6) add a shared wrapper/pattern **only** when recurring multi-product evidence justifies it; otherwise leave composition in the product. Explicitly record rejected legacy-parity assumptions and test *outcomes*, not screenshots copied from vanilla apps.
+
+| Observed legacy behavior (input, NOT target UI) | Functional contract | Plausible native alternatives to evaluate | Shared base decision |
+| --- | --- | --- | --- |
+| HomeSight custom side inspector | Inspect selected record details without losing user context; support appropriate return/dismiss/focus and selection behavior | `Sheet` (edge panel), `Dialog` (focused details), `Drawer` (including mobile interaction), inline `Card`/`Tabs` in a detail route, `ResizablePanelGroup` for persistent split views | **Open.** Compare user tasks, modal/nonmodal, focus, small screens, density, accessibility. No mandatory `SideInspector` wrapper or copy of lock/maximize rules. A product may still need selection persistence; qualify it separately. |
+| HomeSight custom inventory table / Reach task grids | Browse/search/sort/filter/select records with truthful states and safe actions | shadcn `Table` + TanStack Table's fit-for-purpose headless features, or qualified specialist grid where justified | **Open.** Table schemas/column density and product data bindings remain product-owned; no universal vanilla-style DataGrid required. |
+| HomeSight topology visualization | Explore relationships and inspect/select nodes/edges | Official native UI for shell, controls, panels; retain a qualified graph engine as a product adapter where requirements demand it | **Product-specialist likely.** Do not re-create Cytoscape or force a graph engine into the shared base. |
+| SDM configuration/review screens | Safely inspect, validate, compare, confirm or cancel configuration changes | Native `Field`/`Input`/`Tabs`/`AlertDialog`/`Sheet`/forms and fit-for-purpose composition | **Open.** Product owns authorization, state persistence, diff/apply semantics; a global approval wizard is not automatically justified. |
+
+**Official upstream references (evaluate version compatibility with our pinned Base UI source before adoption):** https://ui.shadcn.com/docs/components/base/sheet ; https://ui.shadcn.com/docs/components/base/drawer ; https://ui.shadcn.com/docs/components/base/resizable ; https://ui.shadcn.com/docs/components/base/data-table ; https://ui.shadcn.com/blocks . The official Data Table guide explicitly favors composing task-specific tables over enforcing a single universal data-table component. These are candidates, **not decided UI designs**.
 
 ## Component admission coverage — owner: native catalog
 
@@ -46,19 +61,19 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 | S01 | Application shell, responsive navigation, contextual page/title/actions | Five-page shell, drawer, light/dark | Partial: deep nav/help/context | P0 |
 | S02 | Dense overview, metrics, cards and linked operational drill-down | Overview dashboard | Partial: actual drill-down and truthful stale state | P0 |
 | S03 | Search/sort/filter directory and table | Members | Partial: paging, column density, filters persisted in URL | P0 |
-| S04 | Entity detail screen, structured sections, cross-links, related data | None as integrated page | Gap | P0 |
-| S05 | Side inspector, lock/unlock, stacked selection, maximize/restore | None as integrated page | Gap | P0 |
-| S06 | Multi-selection, bulk review/actions, select-all, indeterminate | None as integrated workflow | Gap | P0 |
+| S04 | View record detail and related context (layout NOT prescribed) | None as integrated page | Functional need to assess; route/dialog/sheet options | P0 |
+| S05 | Inspect a selected item without losing context; dismiss/return/focus; optional persistent comparison | No integrated native comparison | **Pattern decision open:** evaluate Sheet, Dialog, Drawer, inline details, Resizable; legacy lock/maximize not mandated | P0 |
+| S06 | Select and safely act on multiple records where products require it | None as integrated workflow | Evaluate native checkbox + headless table selection and confirmation; product controls scope | P0 |
 | S07 | Task/run list, status, progress, detail, retry/cancel boundaries | Activity is non-operational | Gap | P0 |
 | S08 | History/event timeline, audit/change log and compare/diff | Basic Activity view | Partial: actual timeline/detail/diff | P0 |
 | S09 | Settings editor with field-level validation and dependencies | Settings with local form/tabs | Partial: dirty/validating/denied/error | P0 |
-| S10 | Draft → review → apply/cancel workflow with safe failure handling | No integrated page | Gap | P0 |
+| S10 | Preview and safely confirm/cancel pending changes | No integrated page | Evaluate native Field/Dialog/Tabs/AlertDialog patterns; real apply semantics stay product-owned | P0 |
 | S11 | Complex dialogs, sheet, drawer, popover, nested overlays | Component stories + invitation dialog | Partial: focus, unsaved, stacking/touch | P0 |
 | S12 | Search/command palette and keyboard-oriented navigation | Command component story | Gap: integrated use | P0 |
 | S13 | Contextual Help, deep TOC, code/example, active-section binding | Storybook Docs exists, not product Help | Gap | P0 |
 | S14 | State matrix: loading, empty, first-run, error, offline, stale, degraded, forbidden | Individual component variants only | Gap: integrated truthful states | P0 |
 | S15 | Monitoring/health, time-series, alerts, active incidents | Chart and Activity samples | Partial: production-shaped semantics only | P0 |
-| S16 | Topology/network graph, selectable edges/nodes, inspector integration | No app page; specialist engine needed | Gap: preserve current product engine | P0 |
+| S16 | Understand and explore relationships/topology where products require it | Native app has no graph workflow | Qualified graph engine and native surrounding controls; **product-owned**, no shared legacy graph UI | P0 |
 | S17 | Logs/traces, long streaming output, filters, copy/search | Trace/code component stories | Gap: operational workflow | P0 |
 | S18 | Files/artifacts/attachments, upload progress, preview, recovery | Attachment native source/story | Gap: integrated state | P1 |
 | S19 | Scheduling/calendar and recurring job operations | Calendar primitive only | Gap | P1 |
@@ -69,7 +84,7 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 | S24 | Work queue/backlog, grouped/filterable work items, dependency view | No integrated page | Gap | P1 |
 | S25 | Mobile/zoom/touch variants of dense tables, drawers, inspectors | 20 visual baseline images | Partial: accessibility/reflow/400% zoom | P0 |
 
-P0 = needed to approve broad shared-native foundation for current operational products unless explicitly justified as product-owned specialist composition; P1 = forecast need, assess/admit or defer explicitly. 'Gap' does not imply a new shared component is automatically required. No actual domain mutations, account administration, or external sends in synthetic examples.
+P0 = high-priority *functional requirement to evaluate*, **NOT** an instruction to build the existing app's widget or create a mandatory new shared screen. P1 = plausible future capability, explicitly assess/admit/defer. Each need can be satisfied by native primitives, official blocks, native composition, or a justified **product-owned** specialist adapter; N/A/rejected legacy-parity demands are recorded. Only demonstrably reusable capabilities belong in shared UI. 'Gap' refers to capability evidence, not missing a matching old layout. No actual domain mutations, account administration or external sends in synthetic examples.
 
 ## Cross-cutting state and behavior matrix required for each applicable archetype
 
@@ -78,8 +93,8 @@ Evidence must cover light/dark, desktop/mobile/400% zoom, screen reader labels w
 ## Native admission checklist — gate N (BLOCKED)
 
 - [ ] N1: Confirm scope against current official shadcn/Base UI components **and blocks**, maintained owned-product workflows and existing contract owners; pin provenance, version and licenses. Reconcile every identified required family and record excluded candidates.
-- [ ] N2: Maintain a per-component and per-composition coverage matrix with source, variants/states, behavior, documentation, actual checks, accessibility and any specialist adapter qualification.
-- [ ] N3: For every P0 screen/workflow archetype, demonstrate at least one integrated neutral example or a separately accepted product-owned specialist reference, including meaningful responsive and state variants; traceable evidence required.
+- [ ] N2: Maintain function-to-native mapping and source/variants/states evidence for adopted or genuinely needed components/blocks; evaluate all imported sources for applicability, but do not build unused wrappers or harden product-inapplicable variants merely for a count.
+- [ ] N3: For every P0 functional capability, evaluate native alternatives and explicitly accept the best approach or a product-owned specialist reference; build *representative reusable* integrated neutral examples with responsive/states evidence. A P0 candidate is not a compulsory shared screen or a requirement to reproduce any vanilla UI.
 - [ ] N4: Exercise interaction/focus/keyboard/touch and truthful partial/error/empty states. Build source-backed automated assertions plus human visual review for representative integrated flows. Maintain visual goldens for every admitted screen, not only the original five.
 - [ ] N5: Classify the 12 native contrast exceptions by exact upstream provenance, severity and disposition; review upstream status by 2026-12-06. No unexplained regressions, no upstream patches to conceal gaps.
 - [ ] N6: Formal acceptance of complete known-scope inventory and neutral native reference by Ronald, recorded in canonical Vault and Reach. Keep Brand PR #1 Draft until its exact planned native acceptance is fulfilled or an explicitly narrower native-only delivery boundary is authorized.
@@ -90,7 +105,7 @@ Evidence must cover light/dark, desktop/mobile/400% zoom, screen reader labels w
 
 ## Immediate next work
 
-1. Map S01–S25 to actual canonical owned-product contracts and label each as covered/partial/gap/excluded with owner and required evidence; split P0 into implementable batches.
+1. Extract outcome-level needs from actual owned-product contracts and map S01–S25 as candidate *capabilities*, not target screen designs. For each, decide native composition versus specialist product-owned behavior, evaluate alternatives (starting with record-detail patterns), and only then schedule gaps that merit reusable neutral examples.
 2. Check official upstream components, blocks and community candidate provenance/version to identify anything shadcn 'add --all' missed, with exact compatibility and license review. Do not install indiscriminately.
 3. Expand the neutral workbench with highest-value integrated examples and negative/edge states, updating automated checks and Storybook/visual baselines.
 4. Return to the current Brand PR only after the scoped native coverage acceptance; keep a distinct, explicit theming proposal later.
