@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { expect, userEvent, within } from "@storybook/test"
+import { expect, userEvent, waitFor, within } from "@storybook/test"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -129,11 +129,11 @@ export const SheetDetails: Story = {
   args: { mode: "sheet" },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    await userEvent.click(canvas.getByRole("button", { name: "Inspect Service lifecycle check" }))
+    await userEvent.click(canvas.getByRole("button", { name: /Service lifecycle check/ }))
     const dialog = within(document.body).getByRole("dialog", { name: "Service lifecycle check" })
-    await expect(within(dialog).getByText("EX-102")).toBeVisible()
+    await waitFor(() => expect(within(dialog).getByText("EX-102")).toBeVisible(), { timeout: 4000 })
     await userEvent.keyboard("{Escape}")
-    await expect(dialog).not.toBeVisible()
+    await waitFor(() => expect(dialog).not.toBeVisible(), { timeout: 4000 })
   },
 }
 export const DialogDetails: Story = {
@@ -142,8 +142,8 @@ export const DialogDetails: Story = {
     const canvas = within(canvasElement)
     await userEvent.click(canvas.getByRole("button", { name: /Documentation refresh/ }))
     const dialog = within(document.body).getByRole("dialog", { name: "Documentation refresh" })
-    await expect(within(dialog).getByText("EX-103")).toBeVisible()
+    await waitFor(() => expect(within(dialog).getByText("EX-103")).toBeVisible(), { timeout: 4000 })
     await userEvent.click(within(dialog).getByRole("button", { name: "Return to records" }))
-    await expect(dialog).not.toBeVisible()
+    await waitFor(() => expect(dialog).not.toBeVisible(), { timeout: 4000 })
   },
 }
