@@ -68,7 +68,7 @@ function NativeLogResearch({ view }: { view: View }) {
               <CodeBlock className="max-w-full">
                 <CodeBlockHeader><CodeBlockTitle>sample.log · read only</CodeBlockTitle></CodeBlockHeader>
                 <CodeBlockContent>
-                  <pre className="max-h-64 max-w-full overflow-auto whitespace-pre-wrap break-words p-3 font-mono text-xs leading-5">{output}</pre>
+                  <pre tabIndex={0} aria-label="Scrollable fictional log text" className="max-h-64 max-w-full overflow-auto whitespace-pre-wrap break-words p-3 font-mono text-xs leading-5">{output}</pre>
                 </CodeBlockContent>
               </CodeBlock>
             </section>

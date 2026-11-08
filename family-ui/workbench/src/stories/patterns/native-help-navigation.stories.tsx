@@ -2,7 +2,7 @@ import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, userEvent, within } from "@storybook/test"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { Command, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { SafeMarkdown } from "./native-markdown-renderer"
 
 // Help user outcomes, not a transplant of HomeSight or Reach help structure.
@@ -20,7 +20,9 @@ const topics = [
 
 function NativeHelpResearch({ initialTopic }: { initialTopic: string }) {
   const [selected, setSelected] = useState(initialTopic)
+  const [query, setQuery] = useState("")
   const active = topics.find(t => t.id === selected) ?? topics[0]
+  const matches = topics.filter(topic => topic.title.toLocaleLowerCase("en").includes(query.toLocaleLowerCase("en")))
   return <div className="mx-auto max-w-5xl p-4">
     <Card>
       <CardHeader>
@@ -30,13 +32,15 @@ function NativeHelpResearch({ initialTopic }: { initialTopic: string }) {
       <CardContent>
         <div className="grid min-w-0 gap-4 md:grid-cols-[15rem_minmax(0,1fr)]">
           <nav aria-label="Help topics" className="min-w-0">
-            <Command className="h-fit rounded-md border">
-              <CommandInput aria-label="Find help topics" placeholder="Find help topics" />
+            <Command shouldFilter={false} className="h-fit rounded-md border">
+              <CommandInput aria-label="Find help topics" placeholder="Find help topics" value={query} onValueChange={setQuery} />
               <CommandList>
-                <CommandEmpty>No matching help topics.</CommandEmpty>
-                {["Basics", "Technical", "Reference"].map(category => (
+                {matches.length === 0 && <CommandItem forceMount disabled>No matching help topics.</CommandItem>}
+                {(["Basics", "Technical", "Reference"] as const)
+                  .filter(category => matches.some(topic => topic.category === category))
+                  .map(category => (
                   <CommandGroup key={category} heading={category}>
-                    {topics.filter(t=>t.category===category).map(topic => (
+                    {matches.filter(t=>t.category===category).map(topic => (
                       <CommandItem key={topic.id} value={topic.title} onSelect={() => setSelected(topic.id)}
                         aria-current={selected===topic.id ? "page" : undefined}>
                         {topic.title}
@@ -87,7 +91,7 @@ export const DiagramSourceOnly: Story = { args: { initialTopic: "diagrams" },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await expect(canvas.getByRole("heading", { name: "Technical diagrams" })).toBeVisible()
-    await expect(canvasElement.querySelector("svg")).toBeNull()
+    await expect(canvas.getByRole("region", { name: "Selected help article" }).querySelector("svg")).toBeNull()
     await expect(canvas.getByText(/sequenceDiagram/)).toBeVisible()
   },
 }
