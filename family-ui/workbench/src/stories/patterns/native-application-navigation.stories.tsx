@@ -96,6 +96,9 @@ export const CollapsedNavigation: Story = { args: { initiallyExpanded: false },
       await userEvent.click(canvas.getByRole("button", { name: "Toggle navigation" }))
       const drawer = await within(document.body).findByRole("dialog", { name: "Sidebar" })
       await waitFor(() => expect(drawer).toBeVisible())
+      // Focus transfer into the modal is asynchronous on the narrow mobile viewport.
+      // Escape must be dispatched only after focus is within the active Sheet.
+      await waitFor(() => expect(drawer.contains(document.activeElement)).toBe(true))
       await userEvent.keyboard("{Escape}")
       // Base UI keeps the page inert until its modal Sheet has finished closing.
       // Assert on the live dialog first; only query background roles after release.
