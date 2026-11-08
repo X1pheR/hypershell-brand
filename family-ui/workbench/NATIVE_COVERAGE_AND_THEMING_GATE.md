@@ -60,18 +60,18 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 | --- | --- | --- | --- | --- |
 | S01 | Application shell, responsive navigation, contextual page/title/actions | Five-page shell, drawer, light/dark | Partial: deep nav/help/context | P0 |
 | S02 | Dense overview, metrics, cards and linked operational drill-down | Overview dashboard | Partial: actual drill-down and truthful stale state | P0 |
-| S03 | Search/sort/filter directory and table | Members | Partial: paging, column density, filters persisted in URL | P0 |
+| S03 | Search/sort/filter directory and table | Members + native fictional searchable/sortable/paged Table research stories; pending CI | Partial: product server data/filter URLs, density/virtualization and accessibility | P0 |
 | S04 | View record detail and related context (layout NOT prescribed) | Six neutral native Card/Sheet/Dialog/Drawer/Resizable/MemoryRouter research stories, two-theme axe/play CI passed; not application pages | Functional comparison source prepared; external deep links and product context remain unverified | P0 |
 | S05 | Inspect a selected item without losing context; dismiss/return/focus; optional persistent comparison | Six neutral native composition stories with one fictional fixture, both verify CI jobs passed; no selected global pattern | **Pattern decision open:** compare all alternatives in browser, mobile/400%-zoom/touch/long content; legacy lock/maximize not mandated | P0 |
-| S06 | Select and safely act on multiple records where products require it | None as integrated workflow | Evaluate native checkbox + headless table selection and confirmation; product controls scope | P0 |
+| S06 | Select and safely act on multiple records where products require it | Native checkbox page selection + local review/cancel/confirm candidate, pending CI | Product authorization, concurrency, scope across pages, real mutations remain product-owned | P0 |
 | S07 | Task/run list, status, progress, detail, retry/cancel boundaries | Activity is non-operational | Gap | P0 |
 | S08 | History/event timeline, audit/change log and compare/diff | Basic Activity view | Partial: actual timeline/detail/diff | P0 |
-| S09 | Settings editor with field-level validation and dependencies | Settings with local form/tabs | Partial: dirty/validating/denied/error | P0 |
-| S10 | Preview and safely confirm/cancel pending changes | No integrated page | Evaluate native Field/Dialog/Tabs/AlertDialog patterns; real apply semantics stay product-owned | P0 |
+| S09 | Settings editor with field-level validation and dependencies | Settings + native validated local draft candidate, pending CI | Partial: field validation/dirty/pending/denied; product server validation/dependencies open | P0 |
+| S10 | Preview and safely confirm/cancel pending changes | Native local draft review/confirm/discard and synthetic bulk review/cancel candidates, pending CI | Acceptance of actual product apply semantics and server safety is separate | P0 |
 | S11 | Complex dialogs, sheet, drawer, popover, nested overlays | Component stories + invitation dialog | Partial: focus, unsaved, stacking/touch | P0 |
 | S12 | Search/command palette and keyboard-oriented navigation | Command component story | Gap: integrated use | P0 |
 | S13 | Contextual Help, deep TOC, code/example, active-section binding | Storybook Docs exists, not product Help | Gap | P0 |
-| S14 | State matrix: loading, empty, first-run, error, offline, stale, degraded, forbidden | Individual component variants only | Gap: integrated truthful states | P0 |
+| S14 | State matrix: loading, empty, first-run, error, offline, stale, degraded, forbidden | Native table loading/empty/retry/denied + form pending/denied + Markdown no document, pending CI | Partial: offline/stale/degraded/first-run/long data remain open | P0 |
 | S15 | Monitoring/health, time-series, alerts, active incidents | Chart and Activity samples | Partial: production-shaped semantics only | P0 |
 | S16 | Understand and explore relationships/topology where products require it | Native app has no graph workflow | Qualified graph engine and native surrounding controls; **product-owned**, no shared legacy graph UI | P0 |
 | S17 | Logs/traces, long streaming output, filters, copy/search | Trace/code component stories | Gap: operational workflow | P0 |
@@ -83,8 +83,8 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 | S23 | Interactive technical API/JSON viewer, source/diff, docs examples | Code-block component | Gap: specialist evaluation | P1 |
 | S24 | Work queue/backlog, grouped/filterable work items, dependency view | No integrated page | Gap | P1 |
 | S25 | Mobile/zoom/touch variants of dense tables, drawers, inspectors | 20 visual baseline images | Partial: accessibility/reflow/400% zoom | P0 |
-| S26 | Safely read, preview, navigate and search Markdown documentation and reports, with headings/tables/code and accessible source fallback | No qualified integrated Markdown renderer; native typography/code/table primitives only | Candidate: native composition around a secure CommonMark/GFM renderer; no untrusted HTML/MDX, sanitization and CSP acceptance required | P0 |
-| S27 | Author/edit Markdown source and preview when product workflows demand it | No editor candidate accepted | Compare native Textarea+preview, qualified source editor or rich Markdown editor; round-trip integrity, shortcuts, drafts and product ownership; do not assume globally reusable editor | P1 |
+| S26 | Safely read, preview, navigate and search Markdown documentation and reports, with headings/tables/code and accessible source fallback | Native shadcn composition + pinned react-markdown/GFM safe render and hostile/empty stories; pending CI | Secure parsing negative tests, strict CSP, heading TOC, highlighting/search and a11y still open | P0 |
+| S27 | Author/edit Markdown source and preview when product workflows demand it | Native Textarea + GFM live preview/local-unsaved draft example, pending CI | P1: source integrity, accessibility/shortcut, product save ownership and rich editor demand remain open | P1 |
 
 P0 = high-priority *functional requirement to evaluate*, **NOT** an instruction to build the existing app's widget or create a mandatory new shared screen. P1 = plausible future capability, explicitly assess/admit/defer. Each need can be satisfied by native primitives, official blocks, native composition, or a justified **product-owned** specialist adapter; N/A/rejected legacy-parity demands are recorded. Only demonstrably reusable capabilities belong in shared UI. 'Gap' refers to capability evidence, not missing a matching old layout. No actual domain mutations, account administration or external sends in synthetic examples.
 
@@ -104,7 +104,18 @@ Read-only official navigation audit: current Base UI documentation lists 66 comp
 
 Official references: https://ui.shadcn.com/docs/components/base/empty ; https://ui.shadcn.com/docs/components/base/data-table ; https://ui.shadcn.com/blocks . Pinned source audit via local src/components/ui enumeration. Recheck after upstream version changes. No additional vendor files installed.
 
-## Gate N — Markdown as a separate functional capability (operator addition 2026-11-08)
+## Native functional study wave — 2026-11-08 (implementation candidates; not Gate N acceptance)
+
+**S26/S27 secure Markdown:** `src/stories/patterns/native-markdown-documents.stories.tsx` uses pinned MIT `react-markdown@10.1.0` and `remark-gfm@4.0.1` for four synthetic examples: GFM document with table/task list/fenced code and safe local/HTTPS links; native Textarea live source+preview with unsaved status and reset; hostile HTML/JS protocol and remote image test; honest no-content state. Security policy: `skipHtml`, explicit semantic element allowlist, HTTPS and safe local paths only, no img/iframe/script/MDX, no auto-Mermaid, no raw HTML plugin, no actual persistence or network media fetch. This is a **Storybook-local composition**, not a newly promoted shared Markdown renderer/editor; exact CSP and browser negative-path verification remains required. Syntax highlight/TOC/link fragments and real long document editing remain open.
+
+**S03/S06/S10/S14 record workflows:** `src/stories/patterns/native-record-workflows.stories.tsx` compares native Table+Input+Checkbox+Dialog with deterministic 8-row fictional search/sort/4-row pagination, page-scoped select-all and indeterminate checkbox, cancel/confirm local-only bulk review. Additional stories distinguish no-results, loading, recoverable failure and authorization denied without fabricated backend status. Selection across pages and server-side authorization/versioning belong to each product, not shared UI. No generic DataGrid or operator mutation created.
+
+**S09/S10 form draft safety:** `src/stories/patterns/native-form-draft-review.stories.tsx` demonstrates native fields, HTTPS and name validation, unsaved changes, discard, review-before-local-confirmation, pending and denied states. Actions only mutate synthetic in-browser state, never an SDM config or Reach Task. No global wizard or save transport exists.
+
+**Admission checks:** TypeScript and zero-warning lint pass in isolated pinned Node 24 (run-20261108T011606625541Z-656898929da0). Once source is published, obtain exact-head GitHub light/dark Storybook a11y/play verification, current 20 visual goldens and authenticated private preview; negative Markdown security probes must remain intact. New parser supply chain scope: `react-markdown 10.1.0` (MIT) and `remark-gfm 4.0.1` (MIT), exact pnpm lock. Corepack used the existing pinned `/work/.pnpm-store`; first store-location mismatch was non-mutating and corrected without reinstallation. Legacy peer warnings for `@storybook/test` 8 vs Storybook 10 were already present and are not proof of Markdown incompatibility.
+
+**Remaining gates:** rendering security at runtime/CSP, real 400%-zoom, touch, screen-reader usage, larger datasets, unsaved-change/navigation behavior, endpoint validation at *server* (product-owned), performance/DoS for untrusted large Markdown, and human review. No native source, theme, 5 existing application screens, external service data or diagram library was changed. Gate N still open; Theme Gate T remains blocked.
+\n## Gate N — Markdown as a separate functional capability (operator addition 2026-11-08)
 
 **Explicit scope addition:** assess Markdown for the shared neutral UI reference alongside charts and diagrams, **without** assuming a custom vanilla Markdown editor, a mandatory rich editor, or an all-in-one `MarkdownViewer` wrapper. Existing help, release notes, run reports, engineering documentation, code examples and editable descriptions are sources of user needs, **not** visual implementations to port.
 
