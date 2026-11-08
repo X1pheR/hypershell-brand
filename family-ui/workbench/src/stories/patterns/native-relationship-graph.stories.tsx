@@ -9,9 +9,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 // Specialist *research only*. Official React Flow MIT dev dependency is
 // Storybook-only, not a shared native shadcn component or product graph engine.
 const nodes: Node[] = [
-  { id: "source", type: "input", data: { label: "Data source" }, position: { x: 0, y: 80 } },
-  { id: "processor", data: { label: "Processor" }, position: { x: 260, y: 0 } },
-  { id: "report", type: "output", data: { label: "Report view" }, position: { x: 520, y: 80 } },
+  { id: "source", type: "input", ariaLabel: "Data source node", data: { label: "Data source" }, position: { x: 0, y: 80 } },
+  { id: "processor", ariaLabel: "Processor node", data: { label: "Processor" }, position: { x: 260, y: 0 } },
+  { id: "report", type: "output", ariaLabel: "Report view node", data: { label: "Report view" }, position: { x: 520, y: 80 } },
 ]
 const edges: Edge[] = [
   { id: "e-source-processor", source: "source", target: "processor", label: "example input" },
@@ -79,7 +79,7 @@ export const SelectRelationship: Story = { args: { empty: false },
     const canvas = within(canvasElement)
     await expect(canvas.getByRole("region", { name: "Fictional relationship graph" })).toBeVisible()
     await expect(canvas.getByText(/Data source connects to Processor/)).toBeInTheDocument()
-    await userEvent.click(canvas.getByText("Processor", { selector: ".react-flow__node *" }))
+    await userEvent.click(canvas.getByRole("group", { name: "Processor node" }))
     await expect(canvas.getByRole("region", { name: "Selected graph item" })).toHaveTextContent("Processor")
   } }
 export const NoRelationships: Story = { args: { empty: true },
