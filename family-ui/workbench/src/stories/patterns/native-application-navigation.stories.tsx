@@ -20,6 +20,18 @@ function NavigationContext({ selected }: { selected: Page }) {
   </p>
 }
 
+function PageMenuButton({ page, selected, onSelect }: {
+  page: Page, selected: Page, onSelect: (page: Page) => void
+}) {
+  const { isMobile } = useSidebar()
+  // The full label is already visible in the mobile Sheet. A hidden tooltip
+  // adds an unnecessary dismissable layer and can consume its first Escape.
+  return <SidebarMenuButton isActive={selected === page}
+    tooltip={isMobile ? undefined : page} onClick={() => onSelect(page)}>
+    {page}
+  </SidebarMenuButton>
+}
+
 function NativeShellResearch({ initiallyExpanded }: { initiallyExpanded: boolean }) {
   const [selected, setSelected] = useState<Page>("Overview")
   return <SidebarProvider defaultOpen={initiallyExpanded}>
@@ -31,8 +43,7 @@ function NativeShellResearch({ initiallyExpanded }: { initiallyExpanded: boolean
           <SidebarGroupContent>
             <SidebarMenu>
               {pages.map(page => <SidebarMenuItem key={page}>
-                <SidebarMenuButton isActive={selected === page} tooltip={page}
-                  onClick={() => setSelected(page)}>{page}</SidebarMenuButton>
+                <PageMenuButton page={page} selected={selected} onSelect={setSelected} />
               </SidebarMenuItem>)}
             </SidebarMenu>
           </SidebarGroupContent>

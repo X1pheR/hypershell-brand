@@ -84,10 +84,12 @@ async function main() {
         await trigger.tap() // Real touch API with Chromium emulation, not physical hardware.
         const sidebar = page.getByRole("dialog", { name: "Sidebar" })
         await expect(sidebar).toBeVisible()
-        // Touch-open is tested at real zoom; Escape dismissal is independently
-        // covered by the 320/390px mobile Storybook and browser CI checks.
-        // Modal makes background roles inert; inspect the existing live status by CSS.
+        // Modal makes background roles inert; inspect its status by CSS.
         await expect(page.locator('[role="status"]')).toContainText("mobile open")
+        // Verify mixed touch-open then keyboard Escape in genuine 400% Chrome zoom.
+        await page.keyboard.press("Escape")
+        await expect(sidebar).toHaveCount(0)
+        await expect(trigger).toBeFocused()
       } else if (name === "records") {
         await expect(page.getByRole("table")).toBeVisible()
         await expect(page.getByText(/8 matching example record/)).toBeVisible()
