@@ -174,7 +174,8 @@ export const SearchSortAndPage: Story = {
     await userEvent.clear(canvas.getByRole("textbox", { name: "Find records" }))
     await userEvent.click(canvas.getByRole("button", { name: "Next page" }))
     await expect(canvas.getByText("Page 2 of 2")).toBeVisible()
-    await userEvent.click(canvas.getByRole("button", { name: /Sort name Z–A/ }))
+    await userEvent.click(canvas.getByRole("button", { name: /Sort name A–Z/ }))
+    await expect(canvas.getByRole("button", { name: /Sort name Z–A/ })).toBeVisible()
     await expect(canvas.getByText("Page 2 of 2")).toBeVisible()
   },
 }

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, userEvent, within } from "@storybook/test"
-import Markdown from "react-markdown"
+import Markdown, { defaultUrlTransform } from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -55,7 +55,9 @@ const allowed = [
 ] as const
 
 function allowSafeUrl(raw: string): string {
-  const url = raw.trim()
+  const librarySafe = defaultUrlTransform(raw)
+  if (!librarySafe) return ""
+  const url = librarySafe.trim()
   if (/^#[A-Za-z0-9_-]+$/.test(url) || /^\/(?!\/)[^\\]*$/.test(url)) return url
   try {
     const parsed = new URL(url)

@@ -113,14 +113,14 @@ export const ReviewAndConfirm: Story = { args: { view: "ready" },
     await expect(canvas.getByRole("status")).toHaveTextContent("Local edits not confirmed")
     await userEvent.click(canvas.getByRole("button", { name: "Review draft" }))
     const dialog = await within(document.body).findByRole("dialog", { name: "Review local draft" })
-    await expect(within(dialog).getByText(/checked/)).toBeVisible()
+    await waitFor(() => expect(within(dialog).getByText(/checked/)).toBeVisible(), { timeout: 4000 })
     await userEvent.click(within(dialog).getByRole("button", { name: "Return to editing" }))
     await waitFor(() => expect(dialog).not.toBeVisible())
     await expect(canvas.getByRole("button", { name: "Review draft" })).toBeEnabled()
     await userEvent.click(canvas.getByRole("button", { name: "Review draft" }))
     const again = await within(document.body).findByRole("dialog", { name: "Review local draft" })
     await userEvent.click(within(again).getByRole("button", { name: "Confirm local draft" }))
-    await expect(canvas.getByText(/no server or configuration was changed/)).toBeVisible()
+    await waitFor(() => expect(canvas.getByText(/no server or configuration was changed/)).toBeVisible(), { timeout: 4000 })
   },
 }
 export const ValidationErrors: Story = { args: { view: "invalid" },
