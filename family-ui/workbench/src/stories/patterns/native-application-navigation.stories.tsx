@@ -75,13 +75,32 @@ export const ExpandedNavigation: Story = { args: { initiallyExpanded: true },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await expect(canvas.getByRole("status")).toHaveTextContent("Current view: Overview")
-    await userEvent.click(canvas.getByRole("button", { name: "Reports" }))
-    await expect(canvas.getByRole("status")).toHaveTextContent("Current view: Reports")
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      await userEvent.click(canvas.getByRole("button", { name: "Toggle navigation" }))
+      const drawer = await within(document.body).findByRole("dialog", { name: "Sidebar" })
+      await userEvent.click(within(drawer).getByRole("button", { name: "Reports" }))
+      await expect(canvas.getByRole("status")).toHaveTextContent("Current view: Reports")
+      await userEvent.keyboard("{Escape}")
+      await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile closed")
+    } else {
+      await userEvent.click(canvas.getByRole("button", { name: "Reports" }))
+      await expect(canvas.getByRole("status")).toHaveTextContent("Current view: Reports")
+    }
   } }
 export const CollapsedNavigation: Story = { args: { initiallyExpanded: false },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: collapsed")
-    await userEvent.click(canvas.getByRole("button", { name: "Toggle navigation" }))
-    await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: expanded")
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile closed")
+      await userEvent.click(canvas.getByRole("button", { name: "Toggle navigation" }))
+      const drawer = await within(document.body).findByRole("dialog", { name: "Sidebar" })
+      await expect(drawer).toBeVisible()
+      await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile open")
+      await userEvent.keyboard("{Escape}")
+      await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile closed")
+    } else {
+      await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: collapsed")
+      await userEvent.click(canvas.getByRole("button", { name: "Toggle navigation" }))
+      await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: expanded")
+    }
   } }
