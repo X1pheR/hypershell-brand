@@ -75,7 +75,7 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 | S15 | Monitoring/health, time-series, alerts, active incidents | Ten native Chart studies + fictional progress/partial/stale/error examples, pending CI | Partial: actual monitoring authority, aggregation/synthetic controls and incident flows | P0 |
 | S16 | Understand and explore relationships/topology where products require it | Native app has no graph workflow | Qualified graph engine and native surrounding controls; **product-owned**, no shared legacy graph UI | P0 |
 | S17 | Logs/traces, long streaming output, filters, copy/search | Native CodeBlock+Input filter/long/empty/stale/unavailable synthetic log workflow pending CI | Partial: real streaming/export/redaction and backend ownership remain product-specific | P0 |
-| S18 | Files/artifacts/attachments, upload progress, preview, recovery | Attachment native source/story | Gap: integrated state | P1 |
+| S18 | Files/artifacts/attachments, upload progress, preview, recovery | Native Attachment/Progress five-state research (no file IO), pending CI | P1: actual uploader/scanner/transfer/preview is product-owned; accessible state semantics review | P1 |
 | S19 | Scheduling/calendar and recurring job operations | Calendar primitive only | Gap | P1 |
 | S20 | Guided setup/onboarding and multi-step wizard | No integrated page | Gap | P1 |
 | S21 | Authorization/RBAC, denied/not-found, session and permission-aware controls | Pocket ID external sign-in, no local auth UI needed | Gap: authorization states, avoid duplicate login | P0 |
@@ -104,7 +104,12 @@ Read-only official navigation audit: current Base UI documentation lists 66 comp
 
 Official references: https://ui.shadcn.com/docs/components/base/empty ; https://ui.shadcn.com/docs/components/base/data-table ; https://ui.shadcn.com/blocks . Pinned source audit via local src/components/ui enumeration. Recheck after upstream version changes. No additional vendor files installed.
 
-## Native shell and truthful operational-status functional studies — 2026-11-08 (CI pending)
+## Native attachment lifecycle — function-first S18 (2026-11-08, pending CI)
+
+`native-attachment-lifecycle.stories.tsx` compares **five original native shadcn Attachment states** (idle, uploading, processing, error, done) with native `AttachmentGroup`, `AttachmentDescription`, `AttachmentActions` and `Progress`, using only mock text. No file is opened, selected, attached, imported, uploaded, downloaded, retained, exported or transferred. Even the 'done' story expressly says no real file exists. A local 'Reset' action clears only illustrative error status.
+
+Acceptance boundary: confirm role/state label and keyboard behavior, light/dark/axe, responsive/400%-zoom, meaningful delayed/failed state, recovery, and no misleading progress. File type validation, resumable transport, security scanning, permissions, file storage, actual progress calculation and retention belong to a specific consuming product and are **not** implied by native UI completeness. No shared uploader protocol, branded source or legacy file widget added. The code compiles and zero-warning lints in run-20261108T014027514630Z-3de7b8ab8c5e; exact GitHub Storybook CI and privately published preview remain pending.
+\n## Native shell and truthful operational-status functional studies — 2026-11-08 (CI pending)
 
 **S01/S12 official navigation:** `native-application-navigation.stories.tsx` composes *unchanged* shadcn `SidebarProvider`, `Sidebar`, `SidebarMenu`, `SidebarMenuButton`, `SidebarInset` and `SidebarTrigger`, not the custom `App.tsx` demo sidebar. Research stories compare expanded and initially collapsed navigation, active view state, toggle behavior, responsive native Sheet and upstream Ctrl+B behavior. The original five demo app screens and their 20 accepted goldens are intentionally unchanged. Underlying native Sidebar writes the `sidebar_state` cookie when toggled; **do not** treat this as accepted shared application persistence policy, especially across hostnames/products. Product routes, Pocket ID access and deep links are separately owned.
 
