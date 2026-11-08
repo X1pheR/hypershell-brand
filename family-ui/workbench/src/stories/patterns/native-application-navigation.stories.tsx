@@ -95,7 +95,7 @@ export const CollapsedNavigation: Story = { args: { initiallyExpanded: false },
       await waitFor(() => expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile closed"))
       await userEvent.click(canvas.getByRole("button", { name: "Toggle navigation" }))
       const drawer = await within(document.body).findByRole("dialog", { name: "Sidebar" })
-      await expect(drawer).toBeVisible()
+      await waitFor(() => expect(drawer).toBeVisible())
       await userEvent.keyboard("{Escape}")
       await waitFor(() => expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile closed"))
     } else {
