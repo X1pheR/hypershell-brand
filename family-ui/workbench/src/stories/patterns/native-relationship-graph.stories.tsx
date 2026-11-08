@@ -39,7 +39,9 @@ function NativeRelationshipStudy({ empty }: { empty: boolean }) {
           <div className="h-80 min-w-0 overflow-hidden rounded-lg border bg-background" role="region" aria-label="Fictional relationship graph">
             <ReactFlow nodes={nodes} edges={edges} fitView nodesDraggable={false} nodesConnectable={false}
               zoomOnDoubleClick={false} proOptions={{ hideAttribution: false }}
-              onNodeClick={(_,node)=>setSelected(node.id)} aria-label="Fictional relationship graph">
+              onNodeClick={(_,node)=>setSelected(node.id)}
+              onSelectionChange={({ nodes: chosen }) => setSelected(chosen[0]?.id ?? null)}
+              aria-label="Fictional relationship graph">
               <Background />
               <Controls showInteractive={false} />
             </ReactFlow>
@@ -79,7 +81,9 @@ export const SelectRelationship: Story = { args: { empty: false },
     const canvas = within(canvasElement)
     await expect(canvas.getByRole("region", { name: "Fictional relationship graph" })).toBeVisible()
     await expect(canvas.getByText(/Data source connects to Processor/)).toBeInTheDocument()
-    await userEvent.click(canvas.getByRole("group", { name: "Processor node" }))
+    const target = canvas.getByRole("group", { name: "Processor node" })
+    target.focus()
+    await userEvent.keyboard("{Enter}")
     await expect(canvas.getByRole("region", { name: "Selected graph item" })).toHaveTextContent("Processor")
   } }
 export const NoRelationships: Story = { args: { empty: true },

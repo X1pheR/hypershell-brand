@@ -1,0 +1,59 @@
+# Gate N — function-first native UI admission review
+
+**Decision status:** NOT ACCEPTED. **Theming:** HARD BLOCK. **Last assessed:** 2026-11-08.
+**Authority:** `projects/hypershell-application-ui-harmonization.md`, ADR-HYP-003, and `NATIVE_COVERAGE_AND_THEMING_GATE.md`.
+**Scope:** 27 initial *functional capabilities*, not 27 required routes or copies of existing vanilla interfaces. This document identifies possible reuse decisions and unknowns; it does not grant a generic UI component API or a shared branded package.
+
+## Admission rule
+
+An app's current custom widget is never the target. First capture the user outcome, decide among official shadcn/Base UI primitive composition/official blocks, or demonstrate why a specialist product-owned adapter is required. A working Storybook research story qualifies a **native composition example**, not product-specific permissions, data semantics, backend state or real task actions. Only repeated multi-product functional evidence justifies promoting a shared wrapper. No original `src/components/ui` source patches, legacy visual parity or Hypershell-theme changes are part of this gate.
+
+| ID | Functional need | Current native / specialist evidence | Proposed ownership or next admission | Gate-N disposition |
+| --- | --- | --- | --- | --- |
+| S01 | Accessible shell, navigation and responsive routes | Official Sidebar/SidebarProvider/Inset stories, built-in mobile Sheet; five existing neutral app routes | Native Sidebar suitable research alternative; per-product routing, persistence and deep links not shared by default | PARTIAL: real mobile/focus and cookie behavior |
+| S02 | Operational overview, linked metrics and drill-down | Native Recharts line/area/bar etc, Card and work-status examples | Charts primitives reusable, metric meaning/route/drill-down product-owned | PARTIAL: real data/long/stale semantics |
+| S03 | Search, sort, filter, paginate tabular data | Native Table/Input/Checkbox, eight-row functional pagination and query examples | Product-specific TanStack Table features or specialist grid only when scale/requirements demand | RESEARCH PROVEN; backend scope open |
+| S04 | View a record and related information | Six native Card, Sheet, Dialog, Drawer, Resizable, MemoryRouter examples | Select composition by user task; do not impose SideInspector | RESEARCH PROVEN; actual routes open |
+| S05 | Inspect selection in context and return safely | Same six native comparisons, focus/Escape/reflow evidence | Product chooses modal/nonmodal and selection persistence | RESEARCH PROVEN; no universal wrapper |
+| S06 | Select multiple items and review safely | Native table, page-scoped mixed Checkbox, review/confirm/cancel examples | Backend authorization, concurrency, select-across-pages remain product-owned | RESEARCH PROVEN; real apply not tested |
+| S07 | Work list, progress, retry and cancel boundaries | Native Card/Table/Progress and fictional work lifecycle | Task/run lifecycle authority and retries remain with actual owning product | RESEARCH PROVEN; mutations not simulated as live |
+| S08 | History, chronological events, comparison | Native ordered history and filtered trace examples; code-block primitive | Domain audit integrity, retention, structured diff/compare product-owned | PARTIAL: rich diff not qualified |
+| S09 | Validated settings and dependent controls | Native Input/Textarea, field errors, dirty/discard/review examples | Application owns dependencies, server validation and save API | RESEARCH PROVEN for front-end only |
+| S10 | Review before applying sensitive changes | Native Dialog + local sample confirmation with explicit no backend | Product-owned authorization, version checks, rollback/apply contracts | RESEARCH PROVEN for native UX |
+| S11 | Modal, dialog, sheet, drawer, nested overlays | Full upstream source/Storybook and six comparison flows | Prefer native focus/portals; nested and touch need explicit product acceptance | PARTIAL: complex stacking/accessibility |
+| S12 | Command search and keyboard navigation | Native Command + help topic categories/search | Product owns navigation actions, shortcut scope and routability | RESEARCH PROVEN; modal shortcut open |
+| S13 | Contextual help and documentation | Native Command + safe GFM source with code/table/diagram-source fallback | Help data schema, route context, deep TOC, external links product-owned | RESEARCH PROVEN; contextual routing open |
+| S14 | Truthful loading/empty/error/denied/stale/degraded states | Native Table, form, log, work, chart, Markdown and attachment research states | Shared native variants only; canonical data freshness/error contracts product-owned | PARTIAL: full offline/partial/error matrix |
+| S15 | Trend charts and monitoring status | Ten Recharts stories + native work status timeline | Shared Chart primitive; alert policy/source authority and aggregation stay with product | RESEARCH PROVEN; operational binding open |
+| S16 | Inspect relationships or interactive graph nodes | React Flow dev-only research; Mermaid text-only, Cytoscape.js candidate | Specialist graph engine remains product-owned by default; a shared graph abstraction is not evidenced | SPECIALIST OPEN: touch/CSP/performance/a11y |
+| S17 | Read/filter/search technical logs and traces | Native CodeBlock, truthful stale/error, 80-line scroll keyboard access | Streaming, redaction, retention, auth and export product-owned | RESEARCH PROVEN for read-only |
+| S18 | Artifact/file states, preview and recovery | Native Attachment + Progress five visual states with zero file transfer | File protocol, upload/download/storage/scanning product-owned | RESEARCH PROVEN for state UI only |
+| S19 | Calendar and recurring schedules | Official Calendar native component present; no proven generic recurring scheduler | Defer shared recurrence editor; product owns timezone/cron/DST semantics | DEFER shared editor pending need |
+| S20 | Multi-step onboarding and wizard | Official Form/Field/Tabs/Dialog primitives; no accepted recurring workflow | Compose per product only when actual guided setup/rollback demands | DEFER generic wizard pending need |
+| S21 | Permissions and denied/session state | Native denied states; external Pocket ID owns authentication | No shared login page or duplicated auth; permission enforcement stays server-side | COVERED as composition boundary, no new UI |
+| S22 | Notifications, severity and acknowledgement | Official Toast, Badge and Alert components present; synthetic errors readable | Product-specific alert center/acknowledgement only if needed; avoid second monitoring plane | DEFER generic notification center |
+| S23 | JSON, technical source, diffs | Official CodeBlock and Textarea + Markdown fenced text research | Specialized syntax highlighter, JSON tree, diff editor only where product demands | PARTIAL / specialist product-owned |
+| S24 | Work queue, backlog and dependencies | Native Table/Card/status/list, grouped candidate only | Dependency graph/scheduling state product-owned, no universal task manager | DEFER universal tracker |
+| S25 | Mobile, touch, 400%-zoom and dense reflow | 20 approved screenshots plus 320/390px browser reviews; native Sidebar/Resizable stories | Cross-cutting acceptance, not a shadcn component | OPEN: genuine browser 400% and touch |
+| S26 | Safe Markdown read/preview/TOC | Pinned MIT react-markdown+GFM, native Table/text/code, hostile/empty research | Source-safe parser + native styling; no HTML/MDX/automatic Mermaid | RESEARCH PROVEN; long docs/TOC and CSP |
+| S27 | Markdown source authoring and preview | Native Textarea and safe GFM live preview with local draft/reset | Advanced editor only after real multi-product needs; server write product-owned | RESEARCH PROVEN minimal; rich editor deferred |
+
+## Official source / block scope
+
+- 63/63 official shadcn Base Nova/Base UI native modules and their story docs are represented unchanged. **Data Table, Date Picker and Typography are composite guides** in the official navigation, not three missing TSX files.
+- Official dashboard/sidebar blocks already compose upstream Sidebar, Breadcrumb, Card and charts. Our research uses those official primitives and checks their behavior without wholesale transplantation of block layouts. Login/signup blocks are not automatically needed because the Hypershell authentication owner is Pocket ID.
+- Markdown is a parser and document capability, **not** a native shadcn component; graph editors are specialist engines, not missing native primitives. They require explicit package version/license/CSP/security and workflow acceptance.
+- The five original synthetic app pages and their 20 approved goldens remain unchanged; Storybook research additions extend the **pattern gallery**, not the application-route count. A new full-page app-route set requires separately accepted visuals and routes.
+
+## Explicit product-ownership decisions proposed for Gate N
+
+Do **not** build shared implementations of authentication/Pocket ID, Task/Run persistence, health metric data, alert escalation, calendar/cron scheduling, file transport, topology engine, product-specific data tables/column configurations, approvals/rollback logic, a universal rich Markdown editor, or a universal SideInspector. Use native UI components in each consuming product and specialist adapters only if a real product requirement exists.
+
+## Remaining gates before operator can accept neutral baseline
+
+- [ ] Confirm all 27 function rows against **current product-owned functional needs**, with exclusions and deferrals explicitly accepted. No claim that every future need is predicted.
+- [ ] Current exact-head source, CI, two-theme strict axe/play, original approved visuals and protected private Storybook browser evidence for all added stories.
+- [ ] Verify real browser 400%-zoom, touch focus/reflow, long content and keyboard interactions for priority workflows. A 320px viewport is **not** proof of 400%-zoom.
+- [ ] Review 12 narrowly baselined upstream native contrast failures individually, document accepted exception vs upstream fix and due date 2026-12-06. Native source remains untouched.
+- [ ] Decide the optional diagram engine boundary: Storybook-only dev React Flow is a **candidate**, Mermaid/other engines not admitted as shared dependencies and product graph engines not replaced.
+- [ ] Explicit operator **Gate N GO** on this versioned neutral scope and known risks; then and **only then** a new, separate **Gate T proposal/GO** for Hypershell tokens, brand identity and product migrations. There is no default/implicit GO.
