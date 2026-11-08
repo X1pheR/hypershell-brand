@@ -48,7 +48,7 @@ For each of the 63 currently imported source modules, and each additionally need
 | Navigation | Sidebar, menu, breadcrumb, tabs, pagination, accordion, command, navigation-menu, links | deep routes, back/forward, active nested scope, breadcrumbs, mobile navigation, keyboard help |
 | Data and dense workspace | Table, chart, card, item, scroll-area, resizable, skeleton, empty, code-block, trace | true pagination, server filter/sort, multi-select and bulk, long data, sticky headers, virtualized grid, inspector lock |
 | Overlays and advanced inputs | Dialog, alert-dialog, sheet, drawer, dropdown/context menu, hover-card, tooltip, popover, carousel, attachment | nested/unsaved overlays, portal/focus, touch/outside click, keyboard drag/resizing, drop/upload and recovery |
-| Specialist visualization | No complete native graph topology/advanced editor/large grid engine implied by shadcn primitives | assess vetted graph, data-grid, diff/JSON/code, log/terminal, file tree adapters **without** silently building homemade substitutes |
+| Specialist visualization and formatted content | No complete native graph topology/Markdown parser/advanced editor/large grid engine implied by shadcn primitives | assess vetted graph, Markdown read/preview vs authoring, data-grid, diff/JSON/code, log/terminal, file tree adapters **without** silently building homemade substitutes |
 
 The complete **63-name snapshot must be regenerated from actual workbench source** on each scope review. Each 'catalog story exists' is evidence of component presence, not a passed interaction test.
 
@@ -83,6 +83,8 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 | S23 | Interactive technical API/JSON viewer, source/diff, docs examples | Code-block component | Gap: specialist evaluation | P1 |
 | S24 | Work queue/backlog, grouped/filterable work items, dependency view | No integrated page | Gap | P1 |
 | S25 | Mobile/zoom/touch variants of dense tables, drawers, inspectors | 20 visual baseline images | Partial: accessibility/reflow/400% zoom | P0 |
+| S26 | Safely read, preview, navigate and search Markdown documentation and reports, with headings/tables/code and accessible source fallback | No qualified integrated Markdown renderer; native typography/code/table primitives only | Candidate: native composition around a secure CommonMark/GFM renderer; no untrusted HTML/MDX, sanitization and CSP acceptance required | P0 |
+| S27 | Author/edit Markdown source and preview when product workflows demand it | No editor candidate accepted | Compare native Textarea+preview, qualified source editor or rich Markdown editor; round-trip integrity, shortcuts, drafts and product ownership; do not assume globally reusable editor | P1 |
 
 P0 = high-priority *functional requirement to evaluate*, **NOT** an instruction to build the existing app's widget or create a mandatory new shared screen. P1 = plausible future capability, explicitly assess/admit/defer. Each need can be satisfied by native primitives, official blocks, native composition, or a justified **product-owned** specialist adapter; N/A/rejected legacy-parity demands are recorded. Only demonstrably reusable capabilities belong in shared UI. 'Gap' refers to capability evidence, not missing a matching old layout. No actual domain mutations, account administration or external sends in synthetic examples.
 
@@ -101,6 +103,19 @@ Read-only official navigation audit: current Base UI documentation lists 66 comp
 - AI Elements form an additional site category, separate from these 66 Base UI navigation entries; admit only justified agent/chat functional needs, not as blanket source modules.
 
 Official references: https://ui.shadcn.com/docs/components/base/empty ; https://ui.shadcn.com/docs/components/base/data-table ; https://ui.shadcn.com/blocks . Pinned source audit via local src/components/ui enumeration. Recheck after upstream version changes. No additional vendor files installed.
+
+## Gate N — Markdown as a separate functional capability (operator addition 2026-11-08)
+
+**Explicit scope addition:** assess Markdown for the shared neutral UI reference alongside charts and diagrams, **without** assuming a custom vanilla Markdown editor, a mandatory rich editor, or an all-in-one `MarkdownViewer` wrapper. Existing help, release notes, run reports, engineering documentation, code examples and editable descriptions are sources of user needs, **not** visual implementations to port.
+
+| User capability | Native composition / specialist options to investigate | Admission and ownership questions |
+| --- | --- | --- |
+| **Read and preview Markdown** (P0 evaluation, likely useful across products) | Native shadcn typography, `Card`, `ScrollArea`, `Table`, `CodeBlock` and links around a qualified Markdown parser/rendering library; consider CommonMark and GitHub Flavored Markdown (GFM) | Headings/TOC, deep links, lists, tables, checkboxes, fenced code and syntax highlighting, safe link handling, empty/loading/error/long documents, search/copy, responsive/400%-zoom, keyboard/screen readers; plain-text and safe-source fallback |
+| **Author or edit Markdown** (P1 pending real cross-product demand) | Compare plain `Textarea` with side-by-side preview, source editor (e.g. CodeMirror), and qualified Markdown-aware/rich-text editor options | Preserve round-trip Markdown, undo/redo, selection/focus, toolbar/shortcuts, validation, unsaved changes, paste/file handling, large documents; editor/preview complexity belongs to a product unless evidenced for reuse |
+| **Markdown-embedded diagrams** (separate conditional capability) | Treat fenced Mermaid source as **untrusted input**; render using a security-reviewed diagram adapter only after Mermaid's own Gate N decision; otherwise display fenced source | Prevent arbitrary HTML/script execution and unsafe SVG/link behavior; strict CSP and sanitization, accessible text fallback, diagram source retention, permission boundaries; **do not** automatically enable MDX/JSX or Mermaid rendering |
+| **Rich extensions and interoperability** (defer until demanded) | GFM task lists/tables, frontmatter, footnotes, code highlighting, math, embedded media; extension compatibility review | Explicit source format/version, deterministic output, XSS/sanitization, allowed URLs and images, license/maintenance, output parity and product ownership |
+
+**Hard boundary:** Markdown itself is a format/capability, not an original shadcn component. Evaluate the simplest safe Markdown renderer before any editing framework; do **not** admit unrestricted HTML, MDX or user-controlled JavaScript merely because they can appear in Markdown. Decide render vs editor separately with light/dark, mobile, keyboard, focus, link security, text-equivalent and copy/paste acceptance. Record source provenance, supported syntax and exact dependency/license/security evidence when this reaches implementation. No dependency, shared adapter, native-source change or Hypershell theming is authorized by this inventory addition.
 
 ## Gate N — quantitative visualization and diagram capability study (2026-11-07)
 
@@ -174,7 +189,7 @@ Added three more compositions for **the identical synthetic record-inspection ta
 
 ## Immediate next work
 
-1. Extract outcome-level needs from actual owned-product contracts and map S01–S25 as candidate *capabilities*, not target screen designs. For each, decide native composition versus specialist product-owned behavior, evaluate alternatives (starting with record-detail patterns), and only then schedule gaps that merit reusable neutral examples.
+1. Extract outcome-level needs from actual owned-product contracts and map S01–S27 (initial S01–S25 plus Markdown S26–S27, added by operator 2026-11-08) as candidate *capabilities*, not target screen designs. For each, decide native composition versus specialist product-owned behavior, evaluate alternatives (starting with record-detail patterns), and only then schedule gaps that merit reusable neutral examples.
 2. Check official upstream components, blocks and community candidate provenance/version to identify anything shadcn 'add --all' missed, with exact compatibility and license review. Do not install indiscriminately.
 3. Expand the neutral workbench with highest-value integrated examples and negative/edge states, updating automated checks and Storybook/visual baselines.
 4. Return to the current Brand PR only after the scoped native coverage acceptance; keep a distinct, explicit theming proposal later.
