@@ -69,12 +69,12 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 | S09 | Settings editor with field-level validation and dependencies | Settings + native validated local draft candidate, pending CI | Partial: field validation/dirty/pending/denied; product server validation/dependencies open | P0 |
 | S10 | Preview and safely confirm/cancel pending changes | Native local draft review/confirm/discard and synthetic bulk review/cancel candidates, pending CI | Acceptance of actual product apply semantics and server safety is separate | P0 |
 | S11 | Complex dialogs, sheet, drawer, popover, nested overlays | Component stories + invitation dialog | Partial: focus, unsaved, stacking/touch | P0 |
-| S12 | Search/command palette and keyboard-oriented navigation | Command component story | Gap: integrated use | P0 |
-| S13 | Contextual Help, deep TOC, code/example, active-section binding | Storybook Docs exists, not product Help | Gap | P0 |
+| S12 | Search/command palette and keyboard-oriented navigation | Original Command story + integrated fictional searchable help navigation candidates, pending CI | Partial: keyboard shortcut, deep routing and modal comparison open | P0 |
+| S13 | Contextual Help, deep TOC, code/example, active-section binding | Native Command+safe Markdown help article/navigation stories pending CI | Partial: contextual routes/TOC anchors, product permissions and 400% zoom open | P0 |
 | S14 | State matrix: loading, empty, first-run, error, offline, stale, degraded, forbidden | Native table loading/empty/retry/denied + form pending/denied + Markdown no document, pending CI | Partial: offline/stale/degraded/first-run/long data remain open | P0 |
 | S15 | Monitoring/health, time-series, alerts, active incidents | Chart and Activity samples | Partial: production-shaped semantics only | P0 |
 | S16 | Understand and explore relationships/topology where products require it | Native app has no graph workflow | Qualified graph engine and native surrounding controls; **product-owned**, no shared legacy graph UI | P0 |
-| S17 | Logs/traces, long streaming output, filters, copy/search | Trace/code component stories | Gap: operational workflow | P0 |
+| S17 | Logs/traces, long streaming output, filters, copy/search | Native CodeBlock+Input filter/long/empty/stale/unavailable synthetic log workflow pending CI | Partial: real streaming/export/redaction and backend ownership remain product-specific | P0 |
 | S18 | Files/artifacts/attachments, upload progress, preview, recovery | Attachment native source/story | Gap: integrated state | P1 |
 | S19 | Scheduling/calendar and recurring job operations | Calendar primitive only | Gap | P1 |
 | S20 | Guided setup/onboarding and multi-step wizard | No integrated page | Gap | P1 |
@@ -104,7 +104,14 @@ Read-only official navigation audit: current Base UI documentation lists 66 comp
 
 Official references: https://ui.shadcn.com/docs/components/base/empty ; https://ui.shadcn.com/docs/components/base/data-table ; https://ui.shadcn.com/blocks . Pinned source audit via local src/components/ui enumeration. Recheck after upstream version changes. No additional vendor files installed.
 
-## Native functional study wave — 2026-11-08 (implementation candidates; not Gate N acceptance)
+## Native help/command and diagnostics research — 2026-11-08 (CI acceptance pending)
+
+**S12/S13:** `native-help-navigation.stories.tsx` composes original native shadcn `Command` categories/keyboard search and the **same** secured GFM document renderer used in the Markdown research. The renderer source was extracted only into `src/stories/patterns/native-markdown-renderer.tsx` for Storybook research reuse; it is **not** a new `src/components/ui` export or accepted cross-product Markdown contract. Three fictional help examples test searchable topic navigation, search no-match behavior, a structured GFM technical API article, and Mermaid fenced source shown **without any execution**. Real product route-bound contextual help, contextual anchor deep links, synchronized TOC and permissions remain unqualified.
+
+**S17/S14:** `native-technical-log-viewer.stories.tsx` composes native `CodeBlock`, `Input`, `Button`, `Badge` around deterministic synthetic timestamps and messages. Five bounded stories cover search/error-only filtering, empty filter outcome, explicitly stale fixed snapshot, unavailable source without misleading cached results, and contained scroll of 80 synthetic lines. There is no real log ingest/streaming, data export, credential-bearing lines or product storage/retention. This preserves the source meaning while avoiding mandatory reuse of old vanilla log panes and avoiding the original upstream `Trace` faded-text contrast exception.
+
+**Checks:** TypeScript and zero-warning lint pass (run-20261108T012754166946Z-55751819629d). Full light/dark Storybook axe/play CI, private strict-CSP preview and mobile/400%-zoom remain required before acceptance. The first wave of Markdown/table/form stories is CI-green at `64f53c2` (four GitHub checks) but not yet published as an OCI preview at this checkpoint. Gate N OPEN; Gate T blocked.
+\n## Native functional study wave — 2026-11-08 (implementation candidates; not Gate N acceptance)
 
 **S26/S27 secure Markdown:** `src/stories/patterns/native-markdown-documents.stories.tsx` uses pinned MIT `react-markdown@10.1.0` and `remark-gfm@4.0.1` for four synthetic examples: GFM document with table/task list/fenced code and safe local/HTTPS links; native Textarea live source+preview with unsaved status and reset; hostile HTML/JS protocol and remote image test; honest no-content state. Security policy: `skipHtml`, explicit semantic element allowlist, HTTPS and safe local paths only, no img/iframe/script/MDX, no auto-Mermaid, no raw HTML plugin, no actual persistence or network media fetch. This is a **Storybook-local composition**, not a newly promoted shared Markdown renderer/editor; exact CSP and browser negative-path verification remains required. Syntax highlight/TOC/link fragments and real long document editing remain open.
 
