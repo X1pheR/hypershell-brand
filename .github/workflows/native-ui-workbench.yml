@@ -87,6 +87,8 @@ jobs:
           PY
           fi
           exit "$result"
+      - name: Verify native Sidebar interactions in mobile Chromium (320px and 390px)
+        run: pnpm exec vitest run --project storybook-mobile-light-320 --project storybook-mobile-dark-390 src/stories/patterns/native-application-navigation.stories.tsx --browser.fileParallelism=false
       - name: Run native Application Showcase E2E (desktop and mobile)
         shell: bash
         run: |
