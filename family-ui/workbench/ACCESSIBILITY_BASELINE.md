@@ -16,3 +16,24 @@ Storybook's default remains `a11y.test = "error"`. The 12 **specific existing st
 ### Retirement
 
 At or before 2026-12-06, first inspect the current *official* shadcn registry and upstream issue/PR status. Refreshing from a verified official registry release is acceptable when preserving source provenance; **hand-edited vendor patches are not**. Run strict Storybook tests without each `todo`, verify both light and dark and all states, and remove each exception once passing. Do not extend `review_by` without a recorded re-audit. If downstream Hypershell UI tokens intentionally diverge, validate that separately after the native reference is accepted.
+
+## Individually reviewed exceptions — 2026-11-08
+
+**Observed upstream:** [issue #12518](https://github.com/shadcn-ui/ui/issues/12518) remains open; [PR #12544](https://github.com/shadcn-ui/ui/pull/12544) remains open/unmerged. That PR proposes the *destructive Button style*, not a verified remedy for every Badge, Alert, Toast, Avatar, Kbd or Trace appearance. No upstream release or current native fix is established for any of these twelve stories. The recorded ratios below are the existing pinned-source CI findings, **not new measurements on a different release**. None of the twelve is approved as production-conformant or permanently waived.
+
+| # | Exact Storybook exception | Observed ratio / min | Review disposition and specific exit evidence |
+| --- | --- | --- | --- |
+| 01 | `Buttons.stories.tsx / AllVariants` | 4.00 / 4.50 | **OPEN**: Button destructive awaits #12518/#12544; the Badge shown in the same story needs independent verification after any upstream refresh. |
+| 02 | `Data.stories.tsx / Examples` | 4.00 / 4.50 | **OPEN**: destructive Badge/Alert text; Button-only PR does not establish a fix; retest these native variants separately. |
+| 03 | `catalog/alert-dialog.stories.tsx / Default` | 4.00 / 4.50 | **OPEN**: destructive dialog action; verify the actual pinned AlertDialog composition after an official Button fix, including hover/dark mode. |
+| 04 | `catalog/alert.stories.tsx / Variations` | 4.49 / 4.50 | **OPEN**: Alert destructive icon/text; assess native foreground/background tokens separately, not implicitly solved by #12544. |
+| 05 | `catalog/avatar.stories.tsx / Default` | 4.34 / 4.50 | **OPEN**: muted fallback text; requires an upstream-native contrast improvement and separate axe retest. |
+| 06 | `catalog/avatar.stories.tsx / Variants` | 4.34 / 4.50 | **OPEN**: same native Avatar family but distinct variant story; retest and remove this exact exception independently. |
+| 07 | `catalog/badge.stories.tsx / Variants` | 4.00 / 4.50 | **OPEN**: destructive tinted Badge; #12544's Button change is insufficient evidence; retest Badge styling. |
+| 08 | `catalog/button.stories.tsx / Variants` | 4.00 / 4.50 | **OPEN**: destructive Button native style; follow #12518/#12544 to a published suitable registry release, then retest light/dark rest/hover. |
+| 09 | `catalog/kbd.stories.tsx / Default` | 4.34 / 4.50 | **OPEN**: muted keyboard text on muted background; distinct native Kbd issue, not covered by Button PR. |
+| 10 | `catalog/toast.stories.tsx / Variants` | 4.00 / 4.50 | **OPEN**: destructive tinted Toast; evaluate Toast's own native style and all themes after official updates. |
+| 11 | `catalog/trace.stories.tsx / Default` | 2.71 / 4.50 | **OPEN — higher-severity contrast deficiency**: faded Trace status. Explicit usability review and official-source correction needed before production admission. |
+| 12 | `catalog/trace.stories.tsx / Variants` | 2.29 / 4.50 | **OPEN — higher-severity contrast deficiency**: pending Trace at opacity 60%. Must have independent effective foreground/background verification and retest. |
+
+**Decision:** Retain the narrowly controlled temporary `todo` list **only in the neutral upstream fidelity research reference** while tracking every exception with the existing 2026-12-06 review deadline. Strict accessibility testing remains enabled for all non-baselined stories; a green PR does not prove AA compliance for these twelve. Do not silently apply brand tokens, vendor patches, permanent suppressions, or package/consumer promotion. For Gate N, explicitly distinguish native-reference completeness from unresolved upstream accessibility risk; operator acceptance must include a disposition of this risk.
