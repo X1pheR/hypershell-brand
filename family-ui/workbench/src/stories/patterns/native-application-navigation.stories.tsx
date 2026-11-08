@@ -97,7 +97,11 @@ export const CollapsedNavigation: Story = { args: { initiallyExpanded: false },
       const drawer = await within(document.body).findByRole("dialog", { name: "Sidebar" })
       await waitFor(() => expect(drawer).toBeVisible())
       await userEvent.keyboard("{Escape}")
+      // Base UI keeps the page inert until its modal Sheet has finished closing.
+      // Assert on the live dialog first; only query background roles after release.
+      await waitFor(() => expect(within(document.body).queryByRole("dialog", { name: "Sidebar" })).not.toBeInTheDocument())
       await waitFor(() => expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile closed"))
+      await waitFor(() => expect(canvas.getByRole("button", { name: "Toggle navigation" })).toHaveFocus())
     } else {
       await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: collapsed")
       await userEvent.click(canvas.getByRole("button", { name: "Toggle navigation" }))
