@@ -89,6 +89,8 @@ jobs:
           exit "$result"
       - name: Verify native Sidebar interactions in mobile Chromium (320px and 390px)
         run: pnpm exec vitest run --project storybook-mobile-light-320 --project storybook-mobile-dark-390 src/stories/patterns/native-application-navigation.stories.tsx --browser.fileParallelism=false
+      - name: Verify real Chrome 400% tab zoom and touch-emulated native reflow
+        run: node scripts/check_zoom_reflow.mjs
       - name: Run native Application Showcase E2E (desktop and mobile)
         shell: bash
         run: |
