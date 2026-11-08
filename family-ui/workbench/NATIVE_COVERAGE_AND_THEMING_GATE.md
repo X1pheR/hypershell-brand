@@ -58,21 +58,21 @@ Coverage is assessed by **behavioral archetype**, not just by separate route cou
 
 | ID | Screen / workflow archetype | Current evidence | Initial state | Priority |
 | --- | --- | --- | --- | --- |
-| S01 | Application shell, responsive navigation, contextual page/title/actions | Five-page shell, drawer, light/dark | Partial: deep nav/help/context | P0 |
-| S02 | Dense overview, metrics, cards and linked operational drill-down | Overview dashboard | Partial: actual drill-down and truthful stale state | P0 |
+| S01 | Application shell, responsive navigation, contextual page/title/actions | Five-page neutral app shell + official native Sidebar composition (expanded/collapsed/mobile research) pending CI | Partial: native Sidebar responsive/focus/cookie policy, product routes/context | P0 |
+| S02 | Dense overview, metrics, cards and linked operational drill-down | Original overview + native Chart gallery and fictional work/status examples pending CI | Partial: product drill-down, metric semantics and live data bindings | P0 |
 | S03 | Search/sort/filter directory and table | Members + native fictional searchable/sortable/paged Table research stories; pending CI | Partial: product server data/filter URLs, density/virtualization and accessibility | P0 |
 | S04 | View record detail and related context (layout NOT prescribed) | Six neutral native Card/Sheet/Dialog/Drawer/Resizable/MemoryRouter research stories, two-theme axe/play CI passed; not application pages | Functional comparison source prepared; external deep links and product context remain unverified | P0 |
 | S05 | Inspect a selected item without losing context; dismiss/return/focus; optional persistent comparison | Six neutral native composition stories with one fictional fixture, both verify CI jobs passed; no selected global pattern | **Pattern decision open:** compare all alternatives in browser, mobile/400%-zoom/touch/long content; legacy lock/maximize not mandated | P0 |
 | S06 | Select and safely act on multiple records where products require it | Native checkbox page selection + local review/cancel/confirm candidate, pending CI | Product authorization, concurrency, scope across pages, real mutations remain product-owned | P0 |
-| S07 | Task/run list, status, progress, detail, retry/cancel boundaries | Activity is non-operational | Gap | P0 |
-| S08 | History/event timeline, audit/change log and compare/diff | Basic Activity view | Partial: actual timeline/detail/diff | P0 |
+| S07 | Task/run list, status, progress, detail, retry/cancel boundaries | Native fictional work list/progress/failure with no-op retry candidate pending CI | Partial: real task authority and lifecycle remain product-owned | P0 |
+| S08 | History/event timeline, audit/change log and compare/diff | Activity view + native accessible ordered synthetic event history candidate pending CI | Partial: domain audit/diff semantics, retention and ordering source remain product-owned | P0 |
 | S09 | Settings editor with field-level validation and dependencies | Settings + native validated local draft candidate, pending CI | Partial: field validation/dirty/pending/denied; product server validation/dependencies open | P0 |
 | S10 | Preview and safely confirm/cancel pending changes | Native local draft review/confirm/discard and synthetic bulk review/cancel candidates, pending CI | Acceptance of actual product apply semantics and server safety is separate | P0 |
 | S11 | Complex dialogs, sheet, drawer, popover, nested overlays | Component stories + invitation dialog | Partial: focus, unsaved, stacking/touch | P0 |
 | S12 | Search/command palette and keyboard-oriented navigation | Original Command story + integrated fictional searchable help navigation candidates, pending CI | Partial: keyboard shortcut, deep routing and modal comparison open | P0 |
 | S13 | Contextual Help, deep TOC, code/example, active-section binding | Native Command+safe Markdown help article/navigation stories pending CI | Partial: contextual routes/TOC anchors, product permissions and 400% zoom open | P0 |
 | S14 | State matrix: loading, empty, first-run, error, offline, stale, degraded, forbidden | Native table loading/empty/retry/denied + form pending/denied + Markdown no document, pending CI | Partial: offline/stale/degraded/first-run/long data remain open | P0 |
-| S15 | Monitoring/health, time-series, alerts, active incidents | Chart and Activity samples | Partial: production-shaped semantics only | P0 |
+| S15 | Monitoring/health, time-series, alerts, active incidents | Ten native Chart studies + fictional progress/partial/stale/error examples, pending CI | Partial: actual monitoring authority, aggregation/synthetic controls and incident flows | P0 |
 | S16 | Understand and explore relationships/topology where products require it | Native app has no graph workflow | Qualified graph engine and native surrounding controls; **product-owned**, no shared legacy graph UI | P0 |
 | S17 | Logs/traces, long streaming output, filters, copy/search | Native CodeBlock+Input filter/long/empty/stale/unavailable synthetic log workflow pending CI | Partial: real streaming/export/redaction and backend ownership remain product-specific | P0 |
 | S18 | Files/artifacts/attachments, upload progress, preview, recovery | Attachment native source/story | Gap: integrated state | P1 |
@@ -104,7 +104,14 @@ Read-only official navigation audit: current Base UI documentation lists 66 comp
 
 Official references: https://ui.shadcn.com/docs/components/base/empty ; https://ui.shadcn.com/docs/components/base/data-table ; https://ui.shadcn.com/blocks . Pinned source audit via local src/components/ui enumeration. Recheck after upstream version changes. No additional vendor files installed.
 
-## Native help/command and diagnostics research — 2026-11-08 (CI acceptance pending)
+## Native shell and truthful operational-status functional studies — 2026-11-08 (CI pending)
+
+**S01/S12 official navigation:** `native-application-navigation.stories.tsx` composes *unchanged* shadcn `SidebarProvider`, `Sidebar`, `SidebarMenu`, `SidebarMenuButton`, `SidebarInset` and `SidebarTrigger`, not the custom `App.tsx` demo sidebar. Research stories compare expanded and initially collapsed navigation, active view state, toggle behavior, responsive native Sheet and upstream Ctrl+B behavior. The original five demo app screens and their 20 accepted goldens are intentionally unchanged. Underlying native Sidebar writes the `sidebar_state` cookie when toggled; **do not** treat this as accepted shared application persistence policy, especially across hostnames/products. Product routes, Pocket ID access and deep links are separately owned.
+
+**S02/S07/S08/S14/S15 operational lifecycle:** `native-work-status-and-history.stories.tsx` composes existing `Card`, `Badge`, `Progress`, `Table` and ordered event history around fictional work. Five stories explicitly distinguish status overview, in-progress completion 2/5, incomplete/stale 2/3 sources, failed validation with *local-only* retry and no-work-yet empty state. Real Task or Run mutation, backend attempt IDs, monitoring feed ownership, alert escalation and actual timestamps are **not** in the shared example. Do not call local demo statuses authoritative telemetry.
+
+**Validation needed:** source TypeScript and zero-warning lint PASS run-20261108T013741648879Z-42947accba93. Pending light/dark Storybook axe/play CI and a real browser check of native sidebar at desktop/mobile, keyboard toggle and semantically honest work states. A passing story is evidence for the *composition*, not approval of one universal shell, monitoring dashboard or task execution API. Gate N OPEN; Theme Gate T HARD BLOCKED.
+\n## Native help/command and diagnostics research — 2026-11-08 (CI acceptance pending)
 
 **S12/S13:** `native-help-navigation.stories.tsx` composes original native shadcn `Command` categories/keyboard search and the **same** secured GFM document renderer used in the Markdown research. The renderer source was extracted only into `src/stories/patterns/native-markdown-renderer.tsx` for Storybook research reuse; it is **not** a new `src/components/ui` export or accepted cross-product Markdown contract. Three fictional help examples test searchable topic navigation, search no-match behavior, a structured GFM technical API article, and Mermaid fenced source shown **without any execution**. Real product route-bound contextual help, contextual anchor deep links, synchronized TOC and permissions remain unqualified.
 
