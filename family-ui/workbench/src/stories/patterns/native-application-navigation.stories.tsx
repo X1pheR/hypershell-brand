@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { expect, userEvent, within } from "@storybook/test"
+import { expect, userEvent, waitFor, within } from "@storybook/test"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -76,6 +76,7 @@ export const ExpandedNavigation: Story = { args: { initiallyExpanded: true },
     const canvas = within(canvasElement)
     await expect(canvas.getByRole("status")).toHaveTextContent("Current view: Overview")
     if (window.matchMedia("(max-width: 767px)").matches) {
+      await waitFor(() => expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile closed"))
       await userEvent.click(canvas.getByRole("button", { name: "Toggle navigation" }))
       const drawer = await within(document.body).findByRole("dialog", { name: "Sidebar" })
       await userEvent.click(within(drawer).getByRole("button", { name: "Reports" }))
@@ -91,7 +92,7 @@ export const CollapsedNavigation: Story = { args: { initiallyExpanded: false },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     if (window.matchMedia("(max-width: 767px)").matches) {
-      await expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile closed")
+      await waitFor(() => expect(canvas.getByRole("status")).toHaveTextContent("Navigation: mobile closed"))
       await userEvent.click(canvas.getByRole("button", { name: "Toggle navigation" }))
       const drawer = await within(document.body).findByRole("dialog", { name: "Sidebar" })
       await expect(drawer).toBeVisible()
