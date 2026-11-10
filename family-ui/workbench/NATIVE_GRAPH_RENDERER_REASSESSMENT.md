@@ -130,6 +130,29 @@ This revises interpretation of earlier Playwright-end-to-end selection figures (
 
 **Practical decision:** do not add a generic graph component to Family UI or replace HomeSight now. The strongest proven incremental capability is **free React Flow rich-node composability**; the strongest verified dynamic topology layout property remains **fCoSE native pin constraints**. Building React Flow on top of fCoSE could still be valid but would create two specialized dependencies and a projection/edge semantic adapter, and requires a concrete user benefit. **Next meaningful proof** is an actual, contract-faithful Map flow: one Overview+Deployment real-semantic fixture with directed multi-edges, neighborhood selection and locked shared Inspector, filter position stability, two reset modes, multi-select drag-to-pin, and dense staging. Compare perceived UX and complete route costs with the existing Cytoscape design using the same fixture and hardware. Only then propose a renderer decision for operator approval; Gate N remains **OPEN**, Gate T **HARD BLOCKED**, Draft PR stays Draft.
 
+## 2026-11-10 — same-contract Cytoscape vs React Flow user-flow comparison
+
+**Executed, not a product cutover:** A [reproducible side-by-side research fixture](research/s16-graph-bakeoff-20261109/README.md) now renders the **same synthetic 12-Item/17-Relationship HomeSight-like Inventory** through two *real* renderers using one controller and semantic ID/type/site model. Overview draws 14 relationships. The scope distinguishes true parent containment from Home/OCI/Internet visual zones and offers six synthetic projection filters. It does **not** use actual HomeSight inventory or the exact v38/v40 product UI.
+
+**Key methodological choice:** React Flow and Cytoscape share the **same Cytoscape/fCoSE native fixed-node layout solver**. Therefore layout/mental-map comparisons are controlled, but the React Flow approach still incurs the Cytoscape layout dependency and an adapter, so it does **not** prove a one-engine React Flow architecture. An engine choice must weigh this maintenance/bundle burden as well as actual UX improvement.
+
+**Actual results** (all code and raw JSON in the research directory):
+
+| Browser research outcome | React Flow | Cytoscape |
+| --- | ---: | ---: |
+| Ten shared semantic controller checks, three browser runs each | **3/3 PASS** | **3/3 PASS** |
+| Navigation-to-ready median, unthrottled | 405 ms | **278 ms** |
+| Shared fCoSE reset UI-action median | 105 ms | **100 ms** |
+| Direct mouse node selection, drag-to-pin, Ctrl-click graph multi-selection, relative-position-preserving group drag, Escape | **PASS** | **PASS** |
+| True Chrome 400% tab zoom, 320×225 CSS viewport, emulated touch select/pin/reset, 0 horizontal overflow | **PASS** | **PASS** |
+| CSP style-src self **report-only** inline style-element warnings | 0 observed | **2 observed** |
+
+**Primary evidence:** [six repeated browser passes](https://reach.hypershell.eu/runs/run-20261110T094113859155Z-96965186573d), [both real pointer/group gestures](https://reach.hypershell.eu/runs/run-20261110T093837271382Z-0c61bc60c27c), [both real 400%-zoom cases and report-only CSP](https://reach.hypershell.eu/runs/run-20261110T094021332709Z-a6fdb1c17152). The exact final raw reports are parity-full.json, parity-pointer.json and parity-zoom.json. Previous failed 1px border check and modifier test were isolated research fixture/Playwright API errors, corrected before final test evidence.
+
+**Interpretation and open gaps:** This is a substantial subset of the accepted Map UI: same canonical identity format, per-projection pins, truthful searching with unchanged coordinates, two separate reset actions, item/relationship inspection, pointer multi-select and group drag. **No engine winner** follows from the small 12-node fixture: unthrottled ready-time numbers include one shared bundle that imports *both* engines, and there is no measured real HomeSight user benefit yet justifying a renderer replacement or two specialist graph dependencies. Both variants still lack actual canonical Inventory/Inspector integration, production-specific topology projections and edge lanes/routing, Shift box, long-press, forced-colors and screen reader, true dense Standard staging, 900-KiB gzip route acceptance, actual enforced CSP and physical touch hardware. Cytoscape reported **two CSP report-only inline style-element warnings** in this neutral app; this must be investigated or eliminated under the *actual* application policy before acceptance. React Flow had zero *observed* CSP report-only warnings in that run, not a universal pass. Genuine 400%-zoom behavior is vertical scrolling (1479 CSS px of page content in a 225px viewport), so usability needs operator/hardware review.
+
+**Next decision-changing research:** Do not introduce another engine or change HomeSight yet. Evaluate a complete canonical-semantic Map with the real accepted route/Inspector/routing/over-density behavior and measured bundle, CSP and accessibility constraints. A new renderer must produce demonstrable user-value over retained Cytoscape, not merely match a feature subset. Gate N **OPEN**, Gate T **HARD BLOCKED**, PR remains Draft.
+
 ## Gate boundary
 
 This research **reopens S16 renderer selection** while keeping D-256 as a traceable historical decision until explicitly superseded. **No new graph library added, no native modules changed, no current Cytoscape removal, no theme or app migration.** Gate N remains OPEN, Gate T HARD BLOCKED, Draft PR #1 stays Draft. The earlier React Flow spike's CI failures should not be recycled as an engine-quality judgment.
