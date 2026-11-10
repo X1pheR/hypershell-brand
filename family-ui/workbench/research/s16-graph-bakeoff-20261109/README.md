@@ -94,6 +94,29 @@ The run outputs an explicit per-candidate fixture shape, first and incremental l
 
 **Interpretation:** The highest-confidence result for HomeSight's dynamic, pinned topology is the **native pin constraints in Cytoscape fCoSE**, not an automatic commitment to Cytoscape as the *renderer*. React Flow (MIT) can be evaluated as a view layer separately, but combining two runtimes or replacing the active HomeSight Map needs a demonstrated end-user benefit and SDLC approval.
 
+## 2026-11-10 — Side-by-side HomeSight semantic Map user-flow proof
+
+**Research-only, not product admission:** One synthetic canonical-semantic fixture (12 Items, 17 typed directed Relationships; 14 relationships on Overview), two nested host/VM parent levels and three decorative Home/OCI/Internet site zones. The identical fixture, state/controller, keyboard-accessible visible Item/Relationship lists and six projection controls run with either **React Flow** or **Cytoscape** via the query engine values parity-react and parity-cyto. Six projections have synthetic relationship filters but **not** all actual HomeSight projection algorithms or inventory queries. No live HomeSight data, API, secrets or production files.
+
+**Key fair comparison:** both renderers use the **same real headless Cytoscape/fCoSE fixed-node solver** for both Reset layout (keep pins) and Reset all positions. This isolates view and input interaction but would mean adopting Cytoscape/fCoSE as a layout dependency **alongside** React Flow if this pairing were selected. It is not evidence one engine alone is best.
+
+**Reproduce** after isolated npm ci + Vite build: run the research-only scripts bench-parity.cjs full, bench-parity-pointer.cjs and bench-parity-zoom.cjs in the existing network-none Chromium container with the read-only workbench Playwright dependency mounted. Browser routes are query values parity-react and parity-cyto. Sources: src/parity-model.js, src/parity.jsx, src/main.jsx, src/style.css; complete source-backed results: reports/parity-full.json, reports/parity-pointer.json, reports/parity-zoom.json.
+
+| Same synthetic browser user-flow | React Flow | Cytoscape |
+| --- | ---: | ---: |
+| Repeated complete parity scenarios (10 checks each, three fresh contexts) | **3/3 PASS** | **3/3 PASS** |
+| Navigation to ready, median of three unthrottled runs | 405 ms | **278 ms** |
+| UI fCoSE reset keeping pins, median (both share solver) | 105 ms | **100 ms** |
+| Real mouse graph selection, drag-to-pin, Ctrl-click multi-select, group-drag with preserved relative offsets, Escape clear | **1/1 PASS** | **1/1 PASS** |
+| Real Chrome 400% tab zoom, synthetic touch select/pin/re-layout, no horizontal overflow | **1/1 PASS** | **1/1 PASS** |
+| Strict style-src self CSP **report-only** inline style-element violations | **0 observed** | **2 observed** |
+
+**What actually passed:** 12 canonical Item identities and 14 Overview Relationship IDs, keyboard list selection and directed relationship inspector, separate site vs parent semantics, projection-scoped pins, search/filter clearing with unchanged stored coordinates, native fCoSE pinned solver, distinct reset all, list and actual canvas Ctrl additive selection, Escape, actual pointer drag-to-pin and multi-drag, empty-state recovery and 320px CSS reflow. At true tab zoom 4, the desktop 1280x900 viewport becomes 320x225 CSS px; content is **vertically scrollable** (1479px document height), graph/Inspector are each 320px wide, no horizontal overflow or uncaught JS errors, Chromium *emulated* touch succeeds. Initial test-harness mistakes (1px border overflow and invalid Playwright Mouse.click modifier option) were corrected; final reports are the green observed runs.
+
+**What remains unproven:** end-to-end canonical HomeSight Inventory+locked Inspector, full six real projection semantics, correct taxi/bezier edge routing and adaptive labels, neighbor/Issue emphasis, Shift box-selection and physical touch long-press, site packing through zoom/pan (Cytoscape mock zones currently use screen positions), full keyboard/forced-colors/screen-reader equivalence, dense staged rendering and >1,000 nodes fallback, representative 100/500-node *shared* full UX, complete gzip route budget and actual enforced CSP compatibility. The CSP test is report-only and its React Flow zero warnings cannot prove universal CSP safety. Browser load figures include **both libraries in one experimental bundle**, therefore they are not a fair engine bundle or runtime production-performance ranking.
+
+**Conclusion:** the two renderers can implement the tested user-flow subset. No evidence yet justifies changing the existing HomeSight view or shipping two engines, even though React Flow has good free-core custom-node potential. The old Cytoscape D-256 selection remains historical product evidence, not an immutable future decision. Gate N OPEN, Gate T HARD BLOCKED, Draft PR research only.
+
 ## Rich topology: actual Chrome 400% zoom and event-to-inspector timing (2026-11-10)
 
 **Source:** `bench-richscale-zoom.cjs`; **raw report:** `reports/richscale-zoom.json`; [Reach Run](https://reach.hypershell.eu/runs/run-20261110T085644391927Z-4ada619b5498) passed. This executes the existing rich React Flow fixture at **100 nodes / 300 directed relationships** and **500 / 1,500**, with real isolated Chrome `chrome.tabs.setZoom(4)`, observed `innerWidth=320`, `devicePixelRatio=4`, fourfold CDP CPU slowdown and Chromium touch emulation. An event-capture listener records the timestamp of the DOM `click`; a MutationObserver records when the inspector output actually changes. Thus, **Playwright command setup/dispatch is excluded** from the measured event-to-inspector durations.
