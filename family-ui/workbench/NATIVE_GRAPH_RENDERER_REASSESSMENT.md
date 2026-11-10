@@ -78,6 +78,24 @@ Source references: [Cytoscape.js](https://js.cytoscape.org/), [AntV G6 features]
 
 **Decision:** React Flow core MIT is now **strongly viable** as a configurable implementation for both simple graphs and rich topology, with meaningful non-Pro compound/pin/projection research. Cytoscape retains its existing comprehensive HomeSight contract evidence and stronger initial dense-update efficiency in the unoptimized comparison. G6 has measured scope/performance trade-offs. **No renderer winner or adoption of two engines is proven.** For the next decision-changing step, compare optimized full HomeSight interactions, stable automatic layout with pins, real product inspector/keyboard semantics and change-under-load on a representative browser. Keep current HomeSight renderer and native Family UI source unchanged; Gate N OPEN, Gate T HARD BLOCKED.
 
+## 2026-11-10 — real automatic layouts, native pin constraints and historical HomeSight profile sizes
+
+**Observed, research-only:** the independent [S16 layout source and raw report](research/s16-graph-bakeoff-20261109/README.md) now runs **actual** Dagre compound, ELK Layered nested and Cytoscape fCoSE compound algorithms on synthetic 22/29 and 60/77 Items/Relationships, with two added Items and three edges and two pinned anchors. The sizes and change shape are aligned to the earlier accepted HomeSight [Topology Renderer Bake-off Evidence](https://ignis.hypershell.eu/?vault=hypershell&file=projects%2Fhomesight-canonical-inventory-model%2Fhomesight-docs%2Ftopology-renderer-bakeoff-evidence.md), but **the data/edge topology are not the same**, so numeric metrics must not be directly equated.
+
+| Same synthetic profile, median of three executions | Dagre | ELK Layered | Cytoscape fCoSE |
+| --- | ---: | ---: | ---: |
+| 22/29: initial layout / incremental layout | 215 / 187 ms | 76 / 63 ms | **31 / 12 ms** |
+| 22/29: unchanged unpinned median displacement | 1,695 px | 129 px | **0 px** |
+| 60/77: initial layout / incremental layout | 773 / 616 ms | 119 / 116 ms | **41 / 28 ms** |
+| 60/77: unchanged unpinned median displacement | 2,885 px | 496 px | **0 px** |
+| 60/77: maximum pinned movement **before** any adapter override | 2,759 px | 767 px | **0 px** |
+
+**18/18 algorithm runs passed** with complete returned node identities, intact tested containment geometry and the two final pin coordinates. However, **Dagre and ELK only report 0 px final pinned drift because our experiment forcibly overrides the computed positions**; they do *not* demonstrate an equivalent native immutable-pin contract. That override can invalidate route geometry and has to be reconciled with obstacle avoidance. fCoSE `fixedNodeConstraint` preserves positions *in the algorithm* without that workaround. The 100/300 cyclic stress experiment was also executed in an earlier prototype and showed potentially expensive Dagre operations and overlap problems for the default fCoSE layout; no broad engine performance verdict follows.
+
+**Licensing decision:** the tested `elkjs@0.12.1` license is **EPL-2.0 OR GPL-3.0-or-later** (not MIT). `@dagrejs/dagre`, `cytoscape`, `cytoscape-fcose` and `@xyflow/react` are MIT. Actual ELK redistribution requires the ordinary dependency/license gate; no ELK runtime adoption approved.
+
+**Current S16 recommendation, explicitly provisional:** fCoSE is the **strongest evidenced layout option** for HomeSight's interactive *pinned* network topology in these tested profiles. This **does not require keeping Cytoscape as the future view layer** and does not establish React Flow as the sole preferred renderer: a React Flow view with a separate graph-layout engine is a possibility only if it yields sufficient measurable user benefit to justify the combined packages, semantics bridge and maintenance. Dagre remains a credible option for simpler directional DAGs, and ELK for layouts with ports and orthogonal routing, but their native pinned-mental-map behavior is not established by this test. Do not adopt two engines by default. Historical HomeSight D-256 stays a traceable choice, not an immutable future selection. Gate N **OPEN**, Gate T **HARD BLOCKED**, Draft PR research only; HomeSight production is unchanged.
+
 ## Gate boundary
 
 This research **reopens S16 renderer selection** while keeping D-256 as a traceable historical decision until explicitly superseded. **No new graph library added, no native modules changed, no current Cytoscape removal, no theme or app migration.** Gate N remains OPEN, Gate T HARD BLOCKED, Draft PR #1 stays Draft. The earlier React Flow spike's CI failures should not be recycled as an engine-quality judgment.
