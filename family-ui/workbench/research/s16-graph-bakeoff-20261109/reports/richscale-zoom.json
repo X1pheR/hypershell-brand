@@ -1,0 +1,90 @@
+{
+  "browser": "Chromium ARM64",
+  "cpu": "4x CDP",
+  "touch": "Chromium synthetic touch, not physical hardware",
+  "measure": "capture click event to DOM MutationObserver update; avoids Playwright command overhead",
+  "cases": [
+    {
+      "n": 100,
+      "zoom": 3.9999999999999996,
+      "innerWidth": 320,
+      "devicePixelRatio": 4,
+      "overflow": 0,
+      "graphWidth": 320,
+      "inspectorWidth": 320,
+      "nodes": 100,
+      "edges": 300,
+      "visualZones": 3,
+      "selected": {
+        "kind": "item",
+        "id": "n0"
+      },
+      "pin": true,
+      "samples": [
+        {
+          "id": "n0",
+          "eventToInspectorMs": 53.3
+        },
+        {
+          "id": "n1",
+          "eventToInspectorMs": 40.9
+        },
+        {
+          "id": "n0",
+          "eventToInspectorMs": 36.6
+        },
+        {
+          "id": "n1",
+          "eventToInspectorMs": 38.7
+        },
+        {
+          "id": "n0",
+          "eventToInspectorMs": 34.7
+        }
+      ],
+      "errors": []
+    },
+    {
+      "n": 500,
+      "zoom": 3.9999999999999996,
+      "innerWidth": 320,
+      "devicePixelRatio": 4,
+      "overflow": 0,
+      "graphWidth": 320,
+      "inspectorWidth": 320,
+      "nodes": 500,
+      "edges": 1500,
+      "visualZones": 3,
+      "selected": {
+        "kind": "item",
+        "id": "n0"
+      },
+      "pin": true,
+      "samples": [
+        {
+          "id": "n0",
+          "eventToInspectorMs": 140.6
+        },
+        {
+          "id": "n1",
+          "eventToInspectorMs": 184.4
+        },
+        {
+          "id": "n0",
+          "eventToInspectorMs": 157.3
+        },
+        {
+          "id": "n1",
+          "eventToInspectorMs": 212.8
+        },
+        {
+          "id": "n0",
+          "eventToInspectorMs": 156.1
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "passes": 2,
+  "totalEventSamples": 10
+}

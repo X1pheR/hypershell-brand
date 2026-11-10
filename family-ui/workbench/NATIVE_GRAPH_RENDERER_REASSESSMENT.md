@@ -96,6 +96,18 @@ Source references: [Cytoscape.js](https://js.cytoscape.org/), [AntV G6 features]
 
 **Current S16 recommendation, explicitly provisional:** fCoSE is the **strongest evidenced layout option** for HomeSight's interactive *pinned* network topology in these tested profiles. This **does not require keeping Cytoscape as the future view layer** and does not establish React Flow as the sole preferred renderer: a React Flow view with a separate graph-layout engine is a possibility only if it yields sufficient measurable user benefit to justify the combined packages, semantics bridge and maintenance. Dagre remains a credible option for simpler directional DAGs, and ELK for layouts with ports and orthogonal routing, but their native pinned-mental-map behavior is not established by this test. Do not adopt two engines by default. Historical HomeSight D-256 stays a traceable choice, not an immutable future selection. Gate N **OPEN**, Gate T **HARD BLOCKED**, Draft PR research only; HomeSight production is unchanged.
 
+## 2026-11-10 — rich React Flow: actual 400%-zoom and measured inspector reaction
+
+**Measured follow-up, not full acceptance:** using the existing 100/300 and 500/1500 synthetic rich React Flow fixtures, an isolated Chromium session applied **actual tab zoom 4×** (`chrome.tabs.setZoom`, observed 320 CSS px and DPR4), **4× CPU emulation**, and **synthetic touch**. Both sizes had no page horizontal overflow, visible graph/inspector, correct status and pinned `n0`, and zero uncaught browser errors: [source and raw ten event observations](research/s16-graph-bakeoff-20261109/README.md), [Reach Run](https://reach.hypershell.eu/runs/run-20261110T085644391927Z-4ada619b5498). Timing captures the actual browser `click` event and the inspector's DOM mutation, **excluding Playwright click/tap overhead**.
+
+| Five touch-driven inspector selections per graph | 100/300 | 500/1500 |
+| --- | ---: | ---: |
+| Median event-to-inspector | **38.7 ms** | **157.3 ms** |
+| Slowest event | 53.3 ms | **212.8 ms** |
+| Chrome zoom / CSS viewport / page overflow | 4.0× / 320px / 0px | 4.0× / 320px / 0px |
+
+This revises interpretation of earlier Playwright-end-to-end selection figures (238ms/382ms), which included test orchestration overhead. At 100 nodes the isolated event-to-inspector response is promising. At 500 nodes the **maximum exceeded the HomeSight 200ms selection budget once in five observations**; neither the full product nor a strict maximum is accepted. The fixture still lacks real canonical HomeSight data, full keyboard/graph accessibility, physical touchscreen and deployed CSP behavior, and it does not invoke the new real auto-layout solver on every interaction. **Native S16 and Gate N do not receive a GO from these results.**
+
 ## Gate boundary
 
 This research **reopens S16 renderer selection** while keeping D-256 as a traceable historical decision until explicitly superseded. **No new graph library added, no native modules changed, no current Cytoscape removal, no theme or app migration.** Gate N remains OPEN, Gate T HARD BLOCKED, Draft PR #1 stays Draft. The earlier React Flow spike's CI failures should not be recycled as an engine-quality judgment.

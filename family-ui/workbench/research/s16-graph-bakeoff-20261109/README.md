@@ -94,6 +94,30 @@ The run outputs an explicit per-candidate fixture shape, first and incremental l
 
 **Interpretation:** The highest-confidence result for HomeSight's dynamic, pinned topology is the **native pin constraints in Cytoscape fCoSE**, not an automatic commitment to Cytoscape as the *renderer*. React Flow (MIT) can be evaluated as a view layer separately, but combining two runtimes or replacing the active HomeSight Map needs a demonstrated end-user benefit and SDLC approval.
 
+## Rich topology: actual Chrome 400% zoom and event-to-inspector timing (2026-11-10)
+
+**Source:** `bench-richscale-zoom.cjs`; **raw report:** `reports/richscale-zoom.json`; [Reach Run](https://reach.hypershell.eu/runs/run-20261110T085644391927Z-4ada619b5498) passed. This executes the existing rich React Flow fixture at **100 nodes / 300 directed relationships** and **500 / 1,500**, with real isolated Chrome `chrome.tabs.setZoom(4)`, observed `innerWidth=320`, `devicePixelRatio=4`, fourfold CDP CPU slowdown and Chromium touch emulation. An event-capture listener records the timestamp of the DOM `click`; a MutationObserver records when the inspector output actually changes. Thus, **Playwright command setup/dispatch is excluded** from the measured event-to-inspector durations.
+
+Both graph sizes passed: **zero horizontal document overflow**, graph and inspector 320px wide, Home/OCI/Internet zones present, node selection and pinning via synthetic `tap`, and **no uncaught page errors**.
+
+| Browser outcome, five recorded selections per size | 100/300 rich | 500/1500 dense |
+| --- | ---: | ---: |
+| Median event-to-inspector update | **38.7 ms** | **157.3 ms** |
+| Slowest observed selection | 53.3 ms | **212.8 ms** |
+| Genuine Chrome tab zoom, CSS viewport | 4.0× / 320px | 4.0× / 320px |
+| Horizontal page overflow | 0px | 0px |
+
+**Interpretation:** At 100 nodes the isolated selection path appears comfortably below the existing 200ms UX target; at 500 nodes **one of five sampled events exceeds 200ms**, so do not declare whole-product acceptance. The previous richscale Playwright-timed 238ms/382ms figures were end-to-end automation measurements and **cannot** be directly compared with event-to-DOM timing. We still lack real HomeSight business data, canonical Map inspector integration, exact-product browser/CSP/a11y acceptance and a physical touchscreen. The original 100/500 richscale layout still uses **preset position replacement**, not the fCoSE/Dagre/ELK solver from the separate automatic layout benchmark.
+
+The initial isolated Zoom test script rejected a floating-point return value `3.9999999999999996` when testing strict equality with `4`; the only test correction was a small numerical tolerance `abs(zoom - 4) < 0.0001`, after which the complete test passed. No app component change was made.
+
+To rerun in the isolated research environment after build:
+
+```sh
+docker run --rm --network none -v "$RESEARCH:/work" -v "$BRAND:/src:ro" -w /work \
+  --entrypoint /usr/local/bin/node mcr.microsoft.com/playwright/mcp:v0.0.83 bench-richscale-zoom.cjs
+```
+
 ## Interpretation
 
 - `bench-run.cjs full`: 3 repetitions per engine at 100/500/1500 nodes, no CPU throttle; **stress runs beyond 1,000 nodes are prohibited in HomeSight's automatic product path** (TRB-H19) and are diagnostic only.
