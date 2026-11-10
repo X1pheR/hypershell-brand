@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "established": "2026-11-06",
+  "review_by": "2026-12-06",
+  "policy": "Only known color contrast failures in unchanged upstream native shadcn Base UI references. 'todo' in Storybook shows warnings but does not fail Vitest. All other stories require error mode. Do not reuse this baseline as production accessibility approval.",
+  "exceptions": [
+    {
+      "file": "Buttons.stories.tsx",
+      "story": "AllVariants",
+      "rule": "color-contrast",
+      "measured_ratio": 4,
+      "expected_ratio": 4.5,
+      "reason": "destructive button and badge light variant",
+      "upstream_url": "https://github.com/shadcn-ui/ui/issues/12518"
+    },
+    {
+      "file": "Data.stories.tsx",
+      "story": "Examples",
+      "rule": "color-contrast",
+      "measured_ratio": 4,
+      "expected_ratio": 4.5,
+      "reason": "destructive badge and alert text",
+      "upstream_url": "https://github.com/shadcn-ui/ui/issues/12518"
+    },
+    {
+      "file": "catalog/alert-dialog.stories.tsx",
+      "story": "Default",
+      "rule": "color-contrast",
+      "measured_ratio": 4,
+      "expected_ratio": 4.5,
+      "reason": "destructive native action in dialog",
+      "upstream_url": "https://github.com/shadcn-ui/ui/issues/12518"
+    },
+    {
+      "file": "catalog/alert.stories.tsx",
+      "story": "Variations",
+      "rule": "color-contrast",
+      "measured_ratio": 4.49,
+      "expected_ratio": 4.5,
+      "reason": "destructive icon/text"
+    },
+    {
+      "file": "catalog/avatar.stories.tsx",
+      "story": "Default",
+      "rule": "color-contrast",
+      "measured_ratio": 4.34,
+      "expected_ratio": 4.5,
+      "reason": "muted avatar fallback text"
+    },
+    {
+      "file": "catalog/avatar.stories.tsx",
+      "story": "Variants",
+      "rule": "color-contrast",
+      "measured_ratio": 4.34,
+      "expected_ratio": 4.5,
+      "reason": "muted avatar fallback text"
+    },
+    {
+      "file": "catalog/badge.stories.tsx",
+      "story": "Variants",
+      "rule": "color-contrast",
+      "measured_ratio": 4,
+      "expected_ratio": 4.5,
+      "reason": "destructive tinted badge",
+      "upstream_url": "https://github.com/shadcn-ui/ui/issues/12518"
+    },
+    {
+      "file": "catalog/button.stories.tsx",
+      "story": "Variants",
+      "rule": "color-contrast",
+      "measured_ratio": 4,
+      "expected_ratio": 4.5,
+      "reason": "native button variant; CI failure includes upstream color treatment",
+      "upstream_url": "https://github.com/shadcn-ui/ui/issues/12518"
+    },
+    {
+      "file": "catalog/kbd.stories.tsx",
+      "story": "Default",
+      "rule": "color-contrast",
+      "measured_ratio": 4.34,
+      "expected_ratio": 4.5,
+      "reason": "muted keyboard label on muted background"
+    },
+    {
+      "file": "catalog/toast.stories.tsx",
+      "story": "Variants",
+      "rule": "color-contrast",
+      "measured_ratio": 4,
+      "expected_ratio": 4.5,
+      "reason": "destructive tinted Toast",
+      "upstream_url": "https://github.com/shadcn-ui/ui/issues/12518"
+    },
+    {
+      "file": "catalog/trace.stories.tsx",
+      "story": "Default",
+      "rule": "color-contrast",
+      "measured_ratio": 2.71,
+      "expected_ratio": 4.5,
+      "reason": "native Trace status faded text"
+    },
+    {
+      "file": "catalog/trace.stories.tsx",
+      "story": "Variants",
+      "rule": "color-contrast",
+      "measured_ratio": 2.29,
+      "expected_ratio": 4.5,
+      "reason": "native Trace pending opacity-60"
+    }
+  ]
+}

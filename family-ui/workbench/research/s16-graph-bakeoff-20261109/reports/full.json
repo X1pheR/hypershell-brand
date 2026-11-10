@@ -1,0 +1,713 @@
+{
+  "mode": "full",
+  "repeats": 3,
+  "groups": [
+    100,
+    500,
+    1500
+  ],
+  "samples": [
+    {
+      "engine": "cyto",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 390,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "engineCounts": {
+        "nodes": 100,
+        "edges": 300
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 9.281569480895996,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 28,
+        "update": 27.899999618530273,
+        "pan": 31.699999809265137,
+        "layout": 48.700000286102295
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "cyto",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 1,
+      "ok": true,
+      "errors": [],
+      "initialMs": 395,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "engineCounts": {
+        "nodes": 100,
+        "edges": 300
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 9.386504173278809,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 28.90000009536743,
+        "update": 32.700000286102295,
+        "pan": 32.30000019073486,
+        "layout": 48.59999990463257
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "cyto",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 2,
+      "ok": true,
+      "errors": [],
+      "initialMs": 377,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "engineCounts": {
+        "nodes": 100,
+        "edges": 300
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 9.46164608001709,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 24.800000190734863,
+        "update": 32.90000009536743,
+        "pan": 36.59999990463257,
+        "layout": 43.80000019073486
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 402,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "domNodes": 100,
+      "canvasCount": 0,
+      "svgCount": 305,
+      "jsHeapMB": 8.360851287841797,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 92.09999990463257,
+        "update": 17.59999990463257,
+        "pan": 67.2999997138977,
+        "layout": 78.2999997138977
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 1,
+      "ok": true,
+      "errors": [],
+      "initialMs": 399,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "domNodes": 100,
+      "canvasCount": 0,
+      "svgCount": 305,
+      "jsHeapMB": 8.448017120361328,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 91.2000002861023,
+        "update": 19.40000009536743,
+        "pan": 50,
+        "layout": 87.40000009536743
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 2,
+      "ok": true,
+      "errors": [],
+      "initialMs": 416,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "domNodes": 100,
+      "canvasCount": 0,
+      "svgCount": 305,
+      "jsHeapMB": 8.443840026855469,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 93.09999990463257,
+        "update": 58.700000286102295,
+        "pan": 25.5,
+        "layout": 78.2000002861023
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 569,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "engineCounts": {
+        "nodes": 100,
+        "edges": 300
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 14.236577033996582,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 35.90000009536743,
+        "update": 77,
+        "pan": 28.200000286102295,
+        "layout": 89.19999980926514
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 1,
+      "ok": true,
+      "errors": [],
+      "initialMs": 560,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "engineCounts": {
+        "nodes": 100,
+        "edges": 300
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 14.381852149963379,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 29.90000009536743,
+        "update": 73.7000002861023,
+        "pan": 29,
+        "layout": 91.7000002861023
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 2,
+      "ok": true,
+      "errors": [],
+      "initialMs": 572,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "engineCounts": {
+        "nodes": 100,
+        "edges": 300
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 16.776162147521973,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 31.800000190734863,
+        "update": 73.5,
+        "pan": 23,
+        "layout": 107.90000009536743
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "cyto",
+      "n": 500,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 670,
+      "nodeCount": 500,
+      "edgeCount": 1500,
+      "engineCounts": {
+        "nodes": 500,
+        "edges": 1500
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 20.797511100769043,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 67.40000009536743,
+        "update": 65.5,
+        "pan": 59.200000286102295,
+        "layout": 146.09999990463257
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "cyto",
+      "n": 500,
+      "edgesRatio": 3,
+      "rep": 1,
+      "ok": true,
+      "errors": [],
+      "initialMs": 741,
+      "nodeCount": 500,
+      "edgeCount": 1500,
+      "engineCounts": {
+        "nodes": 500,
+        "edges": 1500
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 21.57277202606201,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 73.39999961853027,
+        "update": 66.89999961853027,
+        "pan": 59.19999980926514,
+        "layout": 148.90000009536743
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "cyto",
+      "n": 500,
+      "edgesRatio": 3,
+      "rep": 2,
+      "ok": true,
+      "errors": [],
+      "initialMs": 724,
+      "nodeCount": 500,
+      "edgeCount": 1500,
+      "engineCounts": {
+        "nodes": 500,
+        "edges": 1500
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 21.307761192321777,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 75.30000019073486,
+        "update": 62.90000009536743,
+        "pan": 58.09999990463257,
+        "layout": 142.59999990463257
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 500,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 1038,
+      "nodeCount": 500,
+      "edgeCount": 1500,
+      "domNodes": 500,
+      "canvasCount": 0,
+      "svgCount": 1505,
+      "jsHeapMB": 25.088757514953613,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 201,
+        "update": 516.5999999046326,
+        "pan": 49.69999980926514,
+        "layout": 99.59999990463257
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 500,
+      "edgesRatio": 3,
+      "rep": 1,
+      "ok": true,
+      "errors": [],
+      "initialMs": 993,
+      "nodeCount": 500,
+      "edgeCount": 1500,
+      "domNodes": 500,
+      "canvasCount": 0,
+      "svgCount": 1505,
+      "jsHeapMB": 25.110222816467285,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 40.90000009536743,
+        "update": 447.2000002861023,
+        "pan": 29.5,
+        "layout": 406.09999990463257
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 500,
+      "edgesRatio": 3,
+      "rep": 2,
+      "ok": true,
+      "errors": [],
+      "initialMs": 865,
+      "nodeCount": 500,
+      "edgeCount": 1500,
+      "domNodes": 500,
+      "canvasCount": 0,
+      "svgCount": 1505,
+      "jsHeapMB": 25.099377632141113,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 119.59999990463257,
+        "update": 414.09999990463257,
+        "pan": 22.90000009536743,
+        "layout": 75.80000019073486
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 500,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 1134,
+      "nodeCount": 500,
+      "edgeCount": 1500,
+      "engineCounts": {
+        "nodes": 500,
+        "edges": 1500
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 61.18067264556885,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 96.7999997138977,
+        "update": 137.90000009536743,
+        "pan": 77.7999997138977,
+        "layout": 391.8999996185303
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 500,
+      "edgesRatio": 3,
+      "rep": 1,
+      "ok": true,
+      "errors": [],
+      "initialMs": 1143,
+      "nodeCount": 500,
+      "edgeCount": 1500,
+      "engineCounts": {
+        "nodes": 500,
+        "edges": 1500
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 41.34415531158447,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 88.30000019073486,
+        "update": 138.5,
+        "pan": 73,
+        "layout": 389.90000009536743
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 500,
+      "edgesRatio": 3,
+      "rep": 2,
+      "ok": true,
+      "errors": [],
+      "initialMs": 1164,
+      "nodeCount": 500,
+      "edgeCount": 1500,
+      "engineCounts": {
+        "nodes": 500,
+        "edges": 1500
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 41.32817554473877,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 86.09999990463257,
+        "update": 139.7999997138977,
+        "pan": 74.5,
+        "layout": 403.2999997138977
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "cyto",
+      "n": 1500,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 1345,
+      "nodeCount": 1500,
+      "edgeCount": 4500,
+      "engineCounts": {
+        "nodes": 1500,
+        "edges": 4500
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 43.80762004852295,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 181.5,
+        "update": 180.59999990463257,
+        "pan": 163,
+        "layout": 374.90000009536743
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "cyto",
+      "n": 1500,
+      "edgesRatio": 3,
+      "rep": 1,
+      "ok": true,
+      "errors": [],
+      "initialMs": 1292,
+      "nodeCount": 1500,
+      "edgeCount": 4500,
+      "engineCounts": {
+        "nodes": 1500,
+        "edges": 4500
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 44.0392370223999,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 184.19999980926514,
+        "update": 167.5,
+        "pan": 166.5,
+        "layout": 356.69999980926514
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "cyto",
+      "n": 1500,
+      "edgesRatio": 3,
+      "rep": 2,
+      "ok": true,
+      "errors": [],
+      "initialMs": 1318,
+      "nodeCount": 1500,
+      "edgeCount": 4500,
+      "engineCounts": {
+        "nodes": 1500,
+        "edges": 4500
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 43.55496120452881,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 187.7000002861023,
+        "update": 176.30000019073486,
+        "pan": 160.09999990463257,
+        "layout": 345.59999990463257
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 1500,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 1978,
+      "nodeCount": 1500,
+      "edgeCount": 4500,
+      "domNodes": 1500,
+      "canvasCount": 0,
+      "svgCount": 4505,
+      "jsHeapMB": 64.03982639312744,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 243.59999990463257,
+        "update": 1337.8000001907349,
+        "pan": 62.69999980926514,
+        "layout": 243.19999980926514
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 1500,
+      "edgesRatio": 3,
+      "rep": 1,
+      "ok": true,
+      "errors": [],
+      "initialMs": 1959,
+      "nodeCount": 1500,
+      "edgeCount": 4500,
+      "domNodes": 1500,
+      "canvasCount": 0,
+      "svgCount": 4505,
+      "jsHeapMB": 63.78708744049072,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 238.69999980926514,
+        "update": 1364.2000002861023,
+        "pan": 58.700000286102295,
+        "layout": 234.59999990463257
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 1500,
+      "edgesRatio": 3,
+      "rep": 2,
+      "ok": true,
+      "errors": [],
+      "initialMs": 2413,
+      "nodeCount": 1500,
+      "edgeCount": 4500,
+      "domNodes": 1500,
+      "canvasCount": 0,
+      "svgCount": 4505,
+      "jsHeapMB": 64.2614164352417,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 350.40000009536743,
+        "update": 1337.3000001907349,
+        "pan": 82.7000002861023,
+        "layout": 248
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 1500,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 2572,
+      "nodeCount": 1500,
+      "edgeCount": 4500,
+      "engineCounts": {
+        "nodes": 1500,
+        "edges": 4500
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 117.21706581115723,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 247.2999997138977,
+        "update": 272.90000009536743,
+        "pan": 211.89999961853027,
+        "layout": 1162.0999999046326
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 1500,
+      "edgesRatio": 3,
+      "rep": 1,
+      "ok": true,
+      "errors": [],
+      "initialMs": 2527,
+      "nodeCount": 1500,
+      "edgeCount": 4500,
+      "engineCounts": {
+        "nodes": 1500,
+        "edges": 4500
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 117.11543464660645,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 263.5,
+        "update": 286.30000019073486,
+        "pan": 216.2000002861023,
+        "layout": 1151.9000000953674
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 1500,
+      "edgesRatio": 3,
+      "rep": 2,
+      "ok": true,
+      "errors": [],
+      "initialMs": 2736,
+      "nodeCount": 1500,
+      "edgeCount": 4500,
+      "engineCounts": {
+        "nodes": 1500,
+        "edges": 4500
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 116.14715766906738,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 270.7999997138977,
+        "update": 286.19999980926514,
+        "pan": 221.69999980926514,
+        "layout": 1165.5
+      },
+      "selected": "n0"
+    }
+  ]
+}

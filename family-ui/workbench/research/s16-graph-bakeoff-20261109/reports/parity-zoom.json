@@ -1,0 +1,51 @@
+{
+  "results": [
+    {
+      "engine": "react",
+      "ok": true,
+      "errors": [],
+      "cspEvents": [],
+      "zoom": 3.9999999999999996,
+      "initial": {
+        "innerWidth": 320,
+        "innerHeight": 225,
+        "dpr": 4,
+        "pageOverflow": 0,
+        "docScrollHeight": 1479,
+        "graphWidth": 320,
+        "graphHeight": 330,
+        "inspectorWidth": 320,
+        "buttons": 41
+      },
+      "touchEmulated": "inspector item tap, pin tap, layout tap, retained pin"
+    },
+    {
+      "engine": "cyto",
+      "ok": true,
+      "errors": [],
+      "cspEvents": [
+        {
+          "directive": "style-src-elem",
+          "blocked": "inline"
+        },
+        {
+          "directive": "style-src-elem",
+          "blocked": "inline"
+        }
+      ],
+      "zoom": 3.9999999999999996,
+      "initial": {
+        "innerWidth": 320,
+        "innerHeight": 225,
+        "dpr": 4,
+        "pageOverflow": 0,
+        "docScrollHeight": 1479,
+        "graphWidth": 320,
+        "graphHeight": 330,
+        "inspectorWidth": 320,
+        "buttons": 37
+      },
+      "touchEmulated": "inspector item tap, pin tap, layout tap, retained pin"
+    }
+  ]
+}

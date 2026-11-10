@@ -1,0 +1,116 @@
+{
+  "results": [
+    {
+      "engine": "react",
+      "ok": true,
+      "checks": [
+        "real pointer directly selected graph node",
+        "actual pointer drag automatically pins moved graph item",
+        "Ctrl modifier multi-select directly on graph",
+        "real pointer group drag preserves relative positions and pins both",
+        "Escape clears direct graph selection"
+      ],
+      "errors": [],
+      "hit": {
+        "x": 531.4840545654297,
+        "y": 481.8457489013672
+      },
+      "afterDrag": {
+        "multi": [
+          "api"
+        ],
+        "selected": {
+          "kind": "item",
+          "id": "api"
+        }
+      },
+      "drag": {
+        "dx": 99,
+        "dy": 53
+      },
+      "ctrlTarget": {
+        "point": {
+          "x": 681.3244934082031,
+          "y": 611.7074584960938
+        },
+        "hit": "<div>Service · ok</div>"
+      },
+      "afterCtrl": {
+        "multi": [
+          "api",
+          "bridge"
+        ],
+        "selected": {
+          "kind": "item",
+          "id": "bridge"
+        }
+      },
+      "groupDrag": {
+        "da": {
+          "x": 72.07667731629385,
+          "y": 39.04153354632592
+        },
+        "db": {
+          "x": 72.07667731629385,
+          "y": 39.04153354632592
+        }
+      }
+    },
+    {
+      "engine": "cyto",
+      "ok": true,
+      "checks": [
+        "real pointer directly selected graph node",
+        "actual pointer drag automatically pins moved graph item",
+        "Ctrl modifier multi-select directly on graph",
+        "real pointer group drag preserves relative positions and pins both",
+        "Escape clears direct graph selection"
+      ],
+      "errors": [],
+      "hit": {
+        "x": 524.9749077490775,
+        "y": 467.3562730627306
+      },
+      "afterDrag": {
+        "multi": [
+          "api"
+        ],
+        "selected": {
+          "kind": "item",
+          "id": "api"
+        }
+      },
+      "drag": {
+        "dx": 105,
+        "dy": 57
+      },
+      "ctrlTarget": {
+        "point": {
+          "x": 682.890036900369,
+          "y": 604.2160516605165
+        },
+        "hit": "<canvas data-id=\"layer0-selectbox\" width=\"1031\" height=\"769\" style=\"user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); outline-style: none; position: absolute; z-index: 3; width: 1031px; height: 769px;\"></"
+      },
+      "afterCtrl": {
+        "multi": [
+          "api",
+          "bridge"
+        ],
+        "selected": {
+          "kind": "item",
+          "id": "bridge"
+        }
+      },
+      "groupDrag": {
+        "da": {
+          "x": 78.36487907465812,
+          "y": 42.74447949526814
+        },
+        "db": {
+          "x": 78.36487907465812,
+          "y": 42.74447949526814
+        }
+      }
+    }
+  ]
+}

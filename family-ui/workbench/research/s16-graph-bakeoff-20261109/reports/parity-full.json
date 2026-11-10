@@ -1,0 +1,168 @@
+{
+  "mode": "full",
+  "repeats": 3,
+  "samples": [
+    {
+      "engine": "react",
+      "rep": 0,
+      "checks": [
+        "canonical identity 12 Items 14 Relationships",
+        "select item from accessible Inventory list",
+        "6-projection switch and retained pin",
+        "filter selection preserves position",
+        "actual native fCoSE reset layout keeps pins",
+        "reset all positions clears pin state",
+        "Ctrl multi-select via accessible list, Escape clears",
+        "canonical directed relation inspector",
+        "truthful empty and restored Map",
+        "320 CSS-pixel reflow"
+      ],
+      "ok": true,
+      "errors": [],
+      "readyMs": 405,
+      "layoutMs": 146,
+      "reflow": {
+        "innerWidth": 320,
+        "overflow": 0,
+        "graph": 320,
+        "inspector": 320,
+        "controls": 11
+      }
+    },
+    {
+      "engine": "react",
+      "rep": 1,
+      "checks": [
+        "canonical identity 12 Items 14 Relationships",
+        "select item from accessible Inventory list",
+        "6-projection switch and retained pin",
+        "filter selection preserves position",
+        "actual native fCoSE reset layout keeps pins",
+        "reset all positions clears pin state",
+        "Ctrl multi-select via accessible list, Escape clears",
+        "canonical directed relation inspector",
+        "truthful empty and restored Map",
+        "320 CSS-pixel reflow"
+      ],
+      "ok": true,
+      "errors": [],
+      "readyMs": 436,
+      "layoutMs": 100,
+      "reflow": {
+        "innerWidth": 320,
+        "overflow": 0,
+        "graph": 320,
+        "inspector": 320,
+        "controls": 11
+      }
+    },
+    {
+      "engine": "react",
+      "rep": 2,
+      "checks": [
+        "canonical identity 12 Items 14 Relationships",
+        "select item from accessible Inventory list",
+        "6-projection switch and retained pin",
+        "filter selection preserves position",
+        "actual native fCoSE reset layout keeps pins",
+        "reset all positions clears pin state",
+        "Ctrl multi-select via accessible list, Escape clears",
+        "canonical directed relation inspector",
+        "truthful empty and restored Map",
+        "320 CSS-pixel reflow"
+      ],
+      "ok": true,
+      "errors": [],
+      "readyMs": 247,
+      "layoutMs": 105,
+      "reflow": {
+        "innerWidth": 320,
+        "overflow": 0,
+        "graph": 320,
+        "inspector": 320,
+        "controls": 11
+      }
+    },
+    {
+      "engine": "cyto",
+      "rep": 0,
+      "checks": [
+        "canonical identity 12 Items 14 Relationships",
+        "select item from accessible Inventory list",
+        "6-projection switch and retained pin",
+        "filter selection preserves position",
+        "actual native fCoSE reset layout keeps pins",
+        "reset all positions clears pin state",
+        "Ctrl multi-select via accessible list, Escape clears",
+        "canonical directed relation inspector",
+        "truthful empty and restored Map",
+        "320 CSS-pixel reflow"
+      ],
+      "ok": true,
+      "errors": [],
+      "readyMs": 278,
+      "layoutMs": 84,
+      "reflow": {
+        "innerWidth": 320,
+        "overflow": 0,
+        "graph": 320,
+        "inspector": 320,
+        "controls": 11
+      }
+    },
+    {
+      "engine": "cyto",
+      "rep": 1,
+      "checks": [
+        "canonical identity 12 Items 14 Relationships",
+        "select item from accessible Inventory list",
+        "6-projection switch and retained pin",
+        "filter selection preserves position",
+        "actual native fCoSE reset layout keeps pins",
+        "reset all positions clears pin state",
+        "Ctrl multi-select via accessible list, Escape clears",
+        "canonical directed relation inspector",
+        "truthful empty and restored Map",
+        "320 CSS-pixel reflow"
+      ],
+      "ok": true,
+      "errors": [],
+      "readyMs": 261,
+      "layoutMs": 105,
+      "reflow": {
+        "innerWidth": 320,
+        "overflow": 0,
+        "graph": 320,
+        "inspector": 320,
+        "controls": 11
+      }
+    },
+    {
+      "engine": "cyto",
+      "rep": 2,
+      "checks": [
+        "canonical identity 12 Items 14 Relationships",
+        "select item from accessible Inventory list",
+        "6-projection switch and retained pin",
+        "filter selection preserves position",
+        "actual native fCoSE reset layout keeps pins",
+        "reset all positions clears pin state",
+        "Ctrl multi-select via accessible list, Escape clears",
+        "canonical directed relation inspector",
+        "truthful empty and restored Map",
+        "320 CSS-pixel reflow"
+      ],
+      "ok": true,
+      "errors": [],
+      "readyMs": 279,
+      "layoutMs": 100,
+      "reflow": {
+        "innerWidth": 320,
+        "overflow": 0,
+        "graph": 320,
+        "inspector": 320,
+        "controls": 11
+      }
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+name: Native UI Workbench
+on:
+  push:
+    branches: [main, "feat/native-ui-workbench-*"]
+    paths: ["family-ui/workbench/**", ".github/workflows/native-ui-workbench.yml"]
+  pull_request:
+    paths: ["family-ui/workbench/**", ".github/workflows/native-ui-workbench.yml"]
+permissions:
+  contents: read
+concurrency:
+  group: native-ui-workbench-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: family-ui/workbench
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.20.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+          cache-dependency-path: family-ui/workbench/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run test:unit
+      - run: pnpm run build
+      - run: pnpm run build:storybook
+      - name: Verify native component catalog and AI manifest
+        run: pnpm run check:catalog
+      - name: Verify official Storybook MCP docs-only contract
+        run: pnpm run check:mcp-docs
+      - name: Verify private loopback MCP bearer authentication
+        run: pnpm run check:mcp-auth
+      - name: Verify reviewed native A11y baseline
+        run: python3 scripts/check_a11y_baseline.py
+      - name: Install browser for official Storybook Vitest addon
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run native Storybook component and accessibility tests
+        shell: bash
+        run: |
+          set +e
+          pnpm run test:storybook > "$RUNNER_TEMP/native-storybook-tests.log" 2>&1
+          result=$?
+          set -e
+          cat "$RUNNER_TEMP/native-storybook-tests.log"
+          if [ "$result" -ne 0 ]; then
+            python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import os
+          raw = (Path(os.environ["RUNNER_TEMP"]) / "native-storybook-tests.log").read_text(errors="replace")
+          clean = re.sub(r"\x1b\[[0-9;]*m", "", raw)
+          lines = clean.splitlines()
+          failed_stories = [line.strip() for line in lines if re.match(r"\s*FAIL\s+", line)]
+          if failed_stories:
+            summary = "\n".join(failed_stories[:45])[:4700]
+            encoded = summary.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+            print("::error title=Native Storybook failing stories::" + encoded)
+            failure_positions = [i for i, line in enumerate(lines) if re.match(r"\s*FAIL\s+", line)]
+            inventory = []
+            for n, position in enumerate(failure_positions):
+              end = failure_positions[n + 1] if n + 1 < len(failure_positions) else len(lines)
+              reasons = [item.strip() for item in lines[position + 1:end] if "Element has " in item or "Unable to find" in item or "TypeError:" in item]
+              if not reasons:
+                block = lines[position + 1:end]
+                detail = [item.strip() for item in block if item.strip() and ("Expected the HTML" in item or "Received:" in item or "must have" in item or "should have" in item or "violation" in item.lower())]
+                for offset, item in enumerate(block):
+                  if "Received:" in item:
+                    detail.extend(line.strip() for line in block[offset + 1:offset + 6] if line.strip())
+                reasons = detail[:8] or [item.strip() for item in block if item.strip()][:8]
+              inventory.append(lines[position].strip() + " | " + " | ".join(dict.fromkeys(reasons[:2])))
+            for index in range(0, len(inventory), 8):
+              group = "\n".join(inventory[index:index + 8])[:3400]
+              escaped_group = group.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::error title=Native Storybook causes {index + 1}-{min(index + 8, len(inventory))}::" + escaped_group)
+          # Make an ordinary GitHub check annotation available through the
+          # read-only GitHub check-runs API; never include runner secrets.
+          tail = "\n".join(lines[-36:])[:2200]
+          escaped = tail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+          print("::error title=Native Storybook Vitest failure::" + escaped)
+          PY
+          fi
+          exit "$result"
+      - name: Verify native Sidebar interactions in mobile Chromium (320px and 390px)
+        run: pnpm exec vitest run --project storybook-mobile-light-320 --project storybook-mobile-dark-390 src/stories/patterns/native-application-navigation.stories.tsx --browser.fileParallelism=false
+      - name: Verify real Chrome 400% tab zoom and touch-emulated native reflow
+        run: node scripts/check_zoom_reflow.mjs
+      - name: Run native Application Showcase E2E (desktop and mobile)
+        shell: bash
+        run: |
+          set +e
+          pnpm run test:e2e > "$RUNNER_TEMP/native-workbench-e2e.log" 2>&1
+          result=$?
+          set -e
+          cat "$RUNNER_TEMP/native-workbench-e2e.log"
+          if [ "$result" -ne 0 ]; then
+            python3 - <<'PY'
+          from pathlib import Path
+          import os
+          raw = (Path(os.environ["RUNNER_TEMP"]) / "native-workbench-e2e.log").read_text(errors="replace")
+          tail = "\n".join(raw.splitlines()[-55:])[:4500]
+          encoded = tail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+          print("::error title=Application Showcase E2E failure::" + encoded)
+          PY
+          fi
+          exit "$result"
+
+  visual:
+    name: approved native visual goldens (20)
+    runs-on: ubuntu-24.04
+    container:
+      image: node@sha256:c86ecead9e55a5210ac1727de38a4ca840bf03dcaf34dc9749addbf383b1920c
+    defaults:
+      run:
+        working-directory: family-ui/workbench
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.20.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+          cache-dependency-path: family-ui/workbench/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Install pinned Playwright Chromium and runtime dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Compare all 20 approved native snapshots (no auto-update)
+        run: pnpm run test:visual
