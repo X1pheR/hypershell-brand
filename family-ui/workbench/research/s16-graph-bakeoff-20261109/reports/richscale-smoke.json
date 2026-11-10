@@ -1,0 +1,24 @@
+{
+  "repeats": 1,
+  "sizes": [
+    100
+  ],
+  "results": [
+    {
+      "n": 100,
+      "rep": 0,
+      "warmup": false,
+      "ok": true,
+      "errors": [],
+      "firstReadyMs": 377,
+      "heapMiB": 7.924349784851074,
+      "selectionMs": 95,
+      "update50Ms": 64,
+      "narrow": {
+        "w": 320,
+        "overflow": 0,
+        "graph": 320
+      }
+    }
+  ]
+}

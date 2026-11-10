@@ -1,0 +1,16 @@
+import React,{memo,useCallback,useEffect,useMemo,useState} from 'react';import {ReactFlow,ReactFlowProvider,Controls,Background,useReactFlow} from '@xyflow/react';import '@xyflow/react/dist/style.css';import {fixture,frame,ready} from './fixture';
+const NodeView=memo(function NodeView({data,selected}){return <div style={{width:110,height:40,padding:4,boxSizing:'border-box',fontSize:10,background:data.status==='error'?'#ffdddd':data.status==='warning'?'#fff1b8':'white',border:selected?'3px solid #222':'1px solid #777'}}>{data.label}</div>});
+const nodeTypes={metric:NodeView};const emptyTypes={};
+function Graph({n,ratio}){const data=useMemo(()=>fixture(n,ratio),[n,ratio]),flow=useReactFlow();
+const initialNodes=useMemo(()=>data.nodes.map(x=>({id:x.id,type:'metric',position:{x:x.x,y:x.y},data:{label:x.label,status:x.status}})),[data]);
+const initialEdges=useMemo(()=>data.edges.map(x=>({id:x.id,source:x.source,target:x.target,type:'straight',style:{stroke:'#999',strokeWidth:1}})),[data]);
+const [nodes,setNodes]=useState(initialNodes);const click=useCallback((_,node)=>{if(window.__s16)window.__s16.selected=node.id},[]);
+useEffect(()=>{let mounted=true;(async()=>{await frame();await frame();if(!mounted)return;
+const api=ready('reactopt',data);api.domNodes=()=>document.querySelectorAll('.react-flow__node').length;
+api.select=async()=>{const t=performance.now();setNodes(xs=>xs.map((x,i)=>i===0?{...x,selected:true}:x));await frame();api.selected='n0';return performance.now()-t};
+api.update=async()=>{const t=performance.now();setNodes(xs=>xs.map((x,i)=>i<50?{...x,data:{...x.data,status:'warning'}}:x));await frame();return performance.now()-t};
+api.pan=async()=>{const t=performance.now();await flow.setViewport({x:-80,y:-60,zoom:.8},{duration:0});await frame();return performance.now()-t};
+api.layout=async()=>{const t=performance.now();setNodes(xs=>xs.map((x,i)=>({...x,position:{x:(i%30)*135,y:Math.floor(i/30)*70}})));await frame();return performance.now()-t};
+})();return()=>{mounted=false}},[data,flow]);
+return <><header><strong>React Flow memoized node render</strong><span>same synthetic graph</span><button onClick={()=>window.__s16?.select()}>Select first</button><button onClick={()=>window.__s16?.update()}>Update fifty</button></header><div id="graph"><ReactFlow nodes={nodes} edges={initialEdges} nodeTypes={nodeTypes} fitView minZoom={.01} maxZoom={4} onlyRenderVisibleElements={false} nodesDraggable nodesConnectable={false} onNodeClick={click}><Background/><Controls/></ReactFlow></div><div id="meta">Loading memoized React Flow</div></>};
+export default function App(p){return <ReactFlowProvider><Graph {...p}/></ReactFlowProvider>};

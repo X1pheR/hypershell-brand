@@ -1,0 +1,87 @@
+{
+  "mode": "smoke",
+  "repeats": 1,
+  "groups": [
+    100
+  ],
+  "samples": [
+    {
+      "engine": "cyto",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 431,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "engineCounts": {
+        "nodes": 100,
+        "edges": 300
+      },
+      "canvasCount": 3,
+      "svgCount": 0,
+      "jsHeapMB": 9.447447776794434,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 22.40000009536743,
+        "update": 34.09999990463257,
+        "pan": 38,
+        "layout": 43.40000009536743
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "react",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 384,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "domNodes": 100,
+      "canvasCount": 0,
+      "svgCount": 305,
+      "jsHeapMB": 8.43182373046875,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 86.69999980926514,
+        "update": 60.09999990463257,
+        "pan": 29.90000009536743,
+        "layout": 75.40000009536743
+      },
+      "selected": "n0"
+    },
+    {
+      "engine": "g6",
+      "n": 100,
+      "edgesRatio": 3,
+      "rep": 0,
+      "ok": true,
+      "errors": [],
+      "initialMs": 603,
+      "nodeCount": 100,
+      "edgeCount": 300,
+      "engineCounts": {
+        "nodes": 100,
+        "edges": 300
+      },
+      "canvasCount": 4,
+      "svgCount": 0,
+      "jsHeapMB": 14.378132820129395,
+      "scrollOverflow": 0,
+      "windowWidth": 1280,
+      "operations": {
+        "select": 30.5,
+        "update": 70.89999961853027,
+        "pan": 30.399999618530273,
+        "layout": 89.7999997138977
+      },
+      "selected": "n0"
+    }
+  ]
+}
