@@ -1,0 +1,11 @@
+import React,{useRef,useEffect} from 'react';import {Graph} from '@antv/g6';import {fixture,frame,ready} from './fixture';
+export default function G6Graph({n,ratio}){const el=useRef(null);useEffect(()=>{let disposed=false,graph;
+const data=fixture(n,ratio),graphData={nodes:data.nodes.map(x=>({id:x.id,style:{x:x.x,y:x.y,size:28,labelText:x.label,labelFontSize:9,fill:x.status==='error'?'#dca1a1':'#89a2bb'}})),edges:data.edges.map(x=>({id:x.id,source:x.source,target:x.target,style:{stroke:'#999',lineWidth:1}}))};
+(async()=>{try{graph=new Graph({container:el.current,width:innerWidth,height:innerHeight-99,data:graphData,node:{type:'circle',style:{size:28,fill:'#89a2bb',labelFontSize:9}},edge:{type:'line',style:{stroke:'#999',lineWidth:1}},behaviors:['drag-canvas','zoom-canvas','drag-element','click-select'],animation:false,autoFit:'view'});await graph.render();await frame();if(disposed)return;const api=ready('g6',data);api.engineCounts=()=>({nodes:graph.getNodeData().length,edges:graph.getEdgeData().length});
+graph.on('node:click',ev=>{if(window.__s16)window.__s16.selected=ev.target.id});
+api.select=async()=>{const t=performance.now();graph.setElementState('n0',['selected']);await graph.draw();await frame();api.selected='n0';return performance.now()-t};
+api.update=async()=>{const t=performance.now();graph.updateNodeData(graphData.nodes.slice(0,50).map(x=>({id:x.id,style:{fill:'#ead89a'}})));await graph.draw();await frame();return performance.now()-t};
+api.pan=async()=>{const t=performance.now();await graph.translateBy([-80,-60],false);await frame();return performance.now()-t};
+api.layout=async()=>{const t=performance.now();graph.updateNodeData(graphData.nodes.map((x,i)=>({id:x.id,style:{x:(i%30)*135,y:Math.floor(i/30)*70}})));await graph.draw();await frame();return performance.now()-t};
+}catch(e){window.__s16={engine:'g6',ready:false,error:String(e.stack||e)};const meta=document.getElementById('meta');if(meta)meta.textContent='ERROR '+String(e.message||e)}})();return()=>{disposed=true;graph?.destroy()}},[n,ratio]);
+return <><header><strong>AntV G6 v5 MIT</strong><span>same preset topology</span><button onClick={()=>window.__s16?.select()}>Select first</button><button onClick={()=>window.__s16?.update()}>Update fifty</button></header><div id="graph" ref={el}/><div id="meta">Loading AntV G6</div></>}

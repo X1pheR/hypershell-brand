@@ -1,0 +1,18 @@
+const fs=require('fs'),path=require('path'),http=require('http'),os=require('os');const {chromium}=require('/src/family-ui/workbench/node_modules/@playwright/test');
+const root='/work/dist',mime={'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.woff2':'font/woff2'};
+const server=http.createServer((req,res)=>{const raw=decodeURIComponent(new URL(req.url,'http://localhost').pathname),file=path.resolve(root,'.'+(raw==='/'?'/index.html':raw));if(!file.startsWith(root+path.sep))return res.writeHead(403).end();fs.readFile(file,(e,d)=>{if(e)return res.writeHead(404).end();res.setHeader('content-type',mime[path.extname(file)]||'application/octet-stream');res.end(d)})});
+(async()=>{const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'s16-zoom-'));let ctx;
+try{await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+const ext=path.join(scratch,'ext');fs.mkdirSync(ext);fs.writeFileSync(path.join(ext,'manifest.json'),JSON.stringify({manifest_version:3,name:'Isolated S16 Chrome Zoom',version:'1.0',permissions:['tabs'],background:{service_worker:'background.js'}}));fs.writeFileSync(path.join(ext,'background.js'),'chrome.runtime.onInstalled.addListener(()=>{});');
+ctx=await chromium.launchPersistentContext(path.join(scratch,'profile'),{headless:true,executablePath:'/ms-playwright/chromium-1247/chrome-linux-arm64/chrome',viewport:{width:1280,height:900},hasTouch:true,args:['--disable-extensions-except='+ext,'--load-extension='+ext]});await ctx.route('**/*',r=>r.request().url().startsWith(origin+'/')?r.continue():r.abort());
+const page=await ctx.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto(origin+'/?engine=cyto&n=100&edges=3');const worker=ctx.serviceWorkers()[0]||await ctx.waitForEvent('serviceworker',{timeout:12000});
+const browserZoom=await worker.evaluate(async port=>{const tab=(await chrome.tabs.query({})).find(t=>t.url?.includes(port));if(!tab)throw Error('tab not found');await chrome.tabs.setZoom(tab.id,4);return chrome.tabs.getZoom(tab.id)},'127.0.0.1:'+server.address().port);
+const results=[];
+for(const engine of ['cyto','react','g6']){
+await page.goto(origin+'/?engine='+engine+'&n=100&edges=3');await page.waitForFunction(()=>window.__s16?.ready||window.__s16?.error,null,{timeout:45000});
+const before=await page.evaluate(()=>({w:innerWidth,dpr:devicePixelRatio,screenOverflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,graphWidth:document.getElementById('graph')?.clientWidth,graphScroll:document.getElementById('graph')?.scrollWidth,focusableNodes:document.querySelectorAll('#graph [tabindex]:not([tabindex="-1"])').length,touchPoints:navigator.maxTouchPoints,controls:Array.from(document.querySelectorAll('button')).filter(e=>e.getBoundingClientRect().width>0).length,overflowElements:Array.from(document.querySelectorAll('body *')).filter(e=>e.getBoundingClientRect().right>innerWidth+1).slice(0,5).map(e=>({tag:e.tagName,cls:String(e.className).slice(0,55),right:Math.round(e.getBoundingClientRect().right)}))}));
+let touchTap='not-run';try{await page.getByRole('button',{name:'Select first'}).tap({timeout:3500});await page.waitForFunction(()=>window.__s16?.selected==='n0',null,{timeout:3000});touchTap='selected n0'}catch(e){touchTap='FAILED:'+String(e.message).slice(0,130)}
+results.push({engine,...before,touchTap});}
+console.log(JSON.stringify({chromeTabZoom:browserZoom,results,unhandledPageErrors:errors}));
+}finally{await ctx?.close();await new Promise(r=>server.close(r));fs.rmSync(scratch,{recursive:true,force:true})}})().catch(e=>{console.error(String(e.stack||e));process.exitCode=1});
